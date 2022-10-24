@@ -1,5 +1,5 @@
-title: Ha-L0 InfoSec Writeups
-author: Ha and L0
+title: H4-L0 InfoSec Writeups
+author: H4 and L0
 url: https://www.Ha-L0.github.io # root address of the site
 description: > # description of the site (multiple lines allowed)
   A collection of InfoSec writeups for you to enjoy.
@@ -7,7 +7,7 @@ permalink: /:slug
 favicon: "./logo.png" # relative path to site's favicon
 
 theme_config:
-  appearance: "light" # can be "light", "dark" or "auto"
+  appearance: "dark" # can be "light", "dark" or "auto"
   appearance_toggle: false # if appearance can be switched by user
   back_home_text: "home.." # customize text for homepage link in post layout
   date_format: "%Y-%m-%d" # customize how date is formatted
