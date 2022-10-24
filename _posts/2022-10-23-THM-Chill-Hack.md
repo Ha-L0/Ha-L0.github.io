@@ -1,6 +1,6 @@
 ---
 layout: post
-author: Marcus Loeper
+author: L0
 ---
 
 # THM - Chill Hack
