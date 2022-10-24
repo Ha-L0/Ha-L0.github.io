@@ -3,4 +3,8 @@ layout: post
 title: About
 ---
 
-Coop for fun.
+# H4
+Just a hacker marching down his path... On Twitter known as [rnd_infosec_guy](https://twitter.com/rnd_infosec_guy)
+
+# L0
+...
