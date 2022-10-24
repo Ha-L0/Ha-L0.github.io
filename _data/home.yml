@@ -5,6 +5,9 @@ navbar_entries:
   - title: writeups
     url: writeups
 
+  - title: exploits
+    url: exploits
+
 project_entries:
   - title: Project 1
     url: overview-post
