@@ -18,8 +18,8 @@ $ nmap -Pn 192.168.55.128
 - 995 (pop3)
 
 ### web application
-Use some kind of dir busting tool like gobuster or dirb to identify the `index.php`  
-`cutenews 2.1.2` is installed on the target.
+Use some kind of dir busting tool like `gobuster` or `dirb` to identify the `index.php`  
+-> `cutenews 2.1.2` is installed on the target.
 
 ---
 
