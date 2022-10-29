@@ -90,6 +90,7 @@ Shellcodes: No Results
 ```
 - `WordPress Core < 5.2.3 - Viewing Unauthenticated/Password/Private Posts ` looks promising  
 - `http://dc-2/?static=1&order=asc` reveals the "secret" content  
+  
 Site gives the hint that `cewl` might be a good idea. `cewl` generates custom wordlists it scrapes from the website you provide.  
 
 ```bash
