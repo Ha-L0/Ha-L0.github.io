@@ -176,7 +176,7 @@ tom@DC-2:~$ less local.txt
 ```
 -> `9586a7b76b2a8**********27dc5606c`
 
-### lpe
+### privilege escalation
 Try to identify if the user `tom` is able to execute commands as a super user.
 
 ```bash
