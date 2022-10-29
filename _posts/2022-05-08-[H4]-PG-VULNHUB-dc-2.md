@@ -174,7 +174,7 @@ Yay! We escaped `rbash` but cat is still not available.
 ```bash
 tom@DC-2:~$ less local.txt
 ```
--> `9586a7b76b2a8**********27dc5606c`
+-> `9******************************c`
 
 ### privilege escalation
 Try to identify if the user `tom` is able to execute commands as a super user.
@@ -211,8 +211,8 @@ sudo git -p help config
 # ls
 final-flag.txt  proof.txt
 # less proof.txt
-6a95123938cbf5b**********c984587
+6******************************7
 ```
--> `6a95123938cbf5b**********c984587`  
+-> `6******************************7`  
   
 Pwned! <@:-)

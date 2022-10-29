@@ -145,9 +145,9 @@ www-data@DC-1:/$ cd home
 www-data@DC-1:/home$ ls
 flag4  local.txt
 www-data@DC-1:/home$ cat local.txt
-778d27ce4cbf**********90457817c8
+7******************************8
 ```
--> `778d27ce4cbf**********90457817c8`
+-> `7******************************8`
 
 ### privilege escalation
 #### check for suid binaries
@@ -203,8 +203,8 @@ root
 # ls
 proof.txt  thefinalflag.txt
 # cat proof.txt
-040ec3eeb86**********c55f2574131
+0******************************1
 ```
--> `040ec3eeb86**********c55f2574131`  
+-> `0******************************1`  
   
 Pwned! <@:-)

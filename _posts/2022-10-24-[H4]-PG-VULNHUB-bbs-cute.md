@@ -183,9 +183,9 @@ www-data
 $ pwd
 /var/www
 $ cat local.txt
-13e7c6be29c**********413f552260ec
+1*******************************c
 ```
--> ```13e7c6be29c*********413f552260ec```
+-> ```1******************************c```
 
 ### privilege escalation
 Looking for SUID binaries.
@@ -214,8 +214,8 @@ proof.txt  root.txt
 # cat root.txt
 Your flag is in another file...
 # cat proof.txt
-a39413f0559f*********ac83c86deb
+a*****************************b
 ```
--> ```a39413f0559f**********ac83c86deb```  
+-> ```a******************************b```  
   
 Pwned! <@:-)
