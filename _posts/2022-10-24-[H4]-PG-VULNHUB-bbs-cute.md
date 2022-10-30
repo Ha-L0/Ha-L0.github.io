@@ -19,12 +19,30 @@ $ nmap -Pn 192.168.55.128
 
 ## web application
 Use some kind of dir busting tool like `gobuster` or `dirb` to identify the `index.php`  
--> `cutenews 2.1.2` is installed on the target.
+> `cutenews 2.1.2` is installed on the target.
+{: .prompt-info }
 
 ---
 
 # exploitation
-`cutenews 2.1.2` is vulnerable to a [rce](https://www.exploit-db.com/exploits/48800) via file upload.
+
+Using searchsploit to check for available exploits.
+
+```bash
+$ searchsploit cutenews 2.1.2
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                                                                            |  Path
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+CuteNews 2.1.2 - 'avatar' Remote Code Execution (Metasploit)                                                                                                                                              | php/remote/46698.rb
+CuteNews 2.1.2 - Arbitrary File Deletion                                                                                                                                                                  | php/webapps/48447.txt
+CuteNews 2.1.2 - Authenticated Arbitrary File Upload                                                                                                                                                      | php/webapps/48458.txt
+CuteNews 2.1.2 - Remote Code Execution                                                                                                                                                                    | php/webapps/48800.py
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+```
+
+> `cutenews 2.1.2` is vulnerable to an [rce](https://www.exploit-db.com/exploits/48800) via file upload.
+{: .prompt-tip }
 
 1. register a new account
 2. perform an avatar upload to upload a shell
@@ -185,7 +203,6 @@ $ pwd
 $ cat local.txt
 1*******************************c
 ```
--> ```1******************************c```
 
 ## privilege escalation
 Looking for SUID binaries.
@@ -216,6 +233,5 @@ Your flag is in another file...
 # cat proof.txt
 a*****************************b
 ```
--> ```a******************************b```  
   
 Pwned! <@:-)

