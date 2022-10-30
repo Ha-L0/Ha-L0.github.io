@@ -185,8 +185,7 @@ $ pwd
 $ cat local.txt
 1*******************************c
 ```
-> `1******************************c`
-{: .prompt-tip }
+-> `1******************************c`
 
 ## privilege escalation
 Looking for SUID binaries.
@@ -217,7 +216,6 @@ Your flag is in another file...
 # cat proof.txt
 a*****************************b
 ```
-> `a******************************b`
-{: .prompt-tip }
+-> `a******************************b`
   
 Pwned! <@:-)
