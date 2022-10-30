@@ -19,7 +19,7 @@ $ nmap -Pn 192.168.55.128
 
 ## web application
 Use some kind of dir busting tool like `gobuster` or `dirb` to identify the `index.php`  
-> cutenews 2.1.2 is installed on the target.
+> `cutenews 2.1.2` is installed on the target.
 {: .prompt-info }
 
 ---
@@ -41,7 +41,7 @@ CuteNews 2.1.2 - Remote Code Execution                                          
 Shellcodes: No Results
 ```
 
-> cutenews 2.1.2 is vulnerable to an [rce](https://www.exploit-db.com/exploits/48800) via file upload.
+> `cutenews 2.1.2` is vulnerable to an [rce](https://www.exploit-db.com/exploits/48800) via file upload.
 {: .prompt-tip }
 
 1. register a new account

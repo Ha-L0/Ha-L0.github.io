@@ -64,7 +64,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 ```
 
-> It seems that wordpress is installed on the web server. Wpscan reveals that wordpress version `4.7.10` is used and outdated.
+> It seems that `wordpress` is installed on the web server. `wpscan` reveals that wordpress version `4.7.10` is used and outdated.
 {: .prompt-tip }
 
 ---
@@ -91,7 +91,7 @@ Shellcodes: No Results
 - `WordPress Core < 5.2.3 - Viewing Unauthenticated/Password/Private Posts` looks promising  
 - `http://dc-2/?static=1&order=asc` reveals the 'secret' content  
   
-> The site gives the hint that cewl might be a good idea. cewl generates custom wordlists it scrapes from the website you provide.
+> The site gives the hint that `cewl` might be a good idea. `cewl` generates custom wordlists it scrapes from the website you provide.
 {: .prompt-tip }
 
 ```bash
@@ -99,7 +99,7 @@ cewl -d 2 -w ourWordlist.txt "http://dc-2/?static=1&order=asc"
 ```
 
 Then we are using `wpscan` to identify accounts on the `wordpress` site and perform a brute force attack with the generated wordlist.  
-> We are using the xmlrpc endpoint here instead of the 'normal' login page, because in this way we can perform multiple login attemps with one xml-rpc call.
+> We are using the `xmlrpc` endpoint here instead of the 'normal' login page, because in this way we can perform multiple login attemps with one xml-rpc call.
 {: .prompt-info }
 
 ```bash
@@ -132,12 +132,12 @@ Trying admin / Powered Time: 00:01:23 <=========================================
 ...
 ```
 Yay! we got two valid credentials for the `wordpress` instance.  
-> Unfortunately both accounts cannot be used to upload a plugin or escalate to an rce.  
+> Unfortunately both accounts cannot be used to upload a `plugin` or escalate to an `rce`.  
 {: .prompt-danger }
 
 ## ssh
 On port 7744 there is a `SSH` service
-> logging in with tom:parturient works
+> logging in with `tom:parturient` works
 {: .prompt-tip }
 
 ```bash
@@ -161,7 +161,7 @@ tom@DC-2:~$ cat local.txt
 -rbash: cat: command not found
 ```
 
-> rbash is in place and the program cat cannot be found. Rbash is a restricted shell which is used to jail a user, so he cannot execute certain commands and act as a normal user.
+> `rbash` is in place and the program `cat` cannot be found. `rbash` is a restricted shell which is used to jail a user, so he cannot execute certain commands and act as a normal user.
 {: .prompt-danger }
 
 ## escaping rbash
