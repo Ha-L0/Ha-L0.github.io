@@ -3,7 +3,7 @@ layout: post
 author: H4
 ---
 
-# PG VULNHUB 
+# PG VULNHUB WPWN
 [Details](https://www.vulnhub.com/entry/wpwn-1,537/)
 
 ## enumeration

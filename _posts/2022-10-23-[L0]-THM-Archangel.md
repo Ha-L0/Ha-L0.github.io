@@ -5,7 +5,7 @@ author: L0
 
 # THM-archangel
 
-![image](/images/Pasted image 20221023211610.png)
+![image](/images/Pasted image 20221023211610.png)  
 [Try Hack Me - Archangel](https://tryhackme.com/room/archangel)
 
 ## Enumeration

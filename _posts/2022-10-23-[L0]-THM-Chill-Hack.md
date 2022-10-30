@@ -5,7 +5,7 @@ author: L0
 
 # THM - Chill Hack
 
-![image](/images/Pasted image 20221023210259.png)
+![image](/images/Pasted image 20221023210259.png)  
 [Try Hack Me - Chill Hack](https://tryhackme.com/room/chillhack)
 
 ## Enumeration
