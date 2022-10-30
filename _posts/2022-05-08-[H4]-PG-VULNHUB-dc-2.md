@@ -64,7 +64,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 ```
 
-> It seems that wordpress is installed on the web server. Wpscan reveals that wordpress version 4.7.10 is used an outdated.
+> It seems that wordpress is installed on the web server. Wpscan reveals that wordpress version `4.7.10` is used and outdated.
 {: .prompt-tip }
 
 ---
