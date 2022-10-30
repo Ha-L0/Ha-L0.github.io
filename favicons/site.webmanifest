@@ -1,0 +1,23 @@
+
+
+{
+  "name": "H4-L0 CTF Writeups",
+  "short_name": "H4-L0 CTF Writeups",
+  "description": "A collection of CTF writeups for you to enjoy.",
+  "icons": [
+    {
+      "src": "/assets/img/favicons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/img/favicons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }],
+  "start_url": "/index.html",
+  "theme_color": "#2a1e6b",
+  "background_color": "#ffffff",
+  "display": "fullscreen"
+}
+
