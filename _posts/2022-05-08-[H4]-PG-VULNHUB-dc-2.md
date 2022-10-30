@@ -177,8 +177,8 @@ Yay! We escaped `rbash` but cat is still not available.
 ## cat alternative to get the first flag
 ```bash
 tom@DC-2:~$ less local.txt
+9******************************c
 ```
--> `9******************************c`
 
 ## privilege escalation
 Try to identify if the user `tom` is able to execute commands as a super user.
@@ -217,6 +217,5 @@ final-flag.txt  proof.txt
 # less proof.txt
 6******************************7
 ```
--> `6******************************7`  
   
 Pwned! <@:-)
