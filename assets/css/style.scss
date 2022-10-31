@@ -8,7 +8,7 @@
 $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
 
 @import "{{ site.theme }}";
-
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
 /* append your custom style below */
 
 .signiture {
@@ -19,10 +19,8 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
 #avatar {
   > a {
     display: block;
-    width: 20rem;
-    height: 20rem;
-    border-radius: 50%;
-    border: 0px solid rgba(222, 222, 222, 0.7);
+    width: 18rem;
+    height: 18rem;
     overflow: hidden;
   }
 
@@ -33,18 +31,16 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
 } /* #avatar */
 
 .site-title {
-  margin-top: 1.55rem;
+  margin-top: 2.55rem;
   text-align: center;
-
-  a {
-    @extend %clickable-transition;
-
-    font-weight: 900;
+  font-weight: 900;
     text-transform: uppercase;
     font-size: 3.5rem;
     line-height: 2.2rem;
     letter-spacing: 0.5px;
-    color: rgba(134, 133, 133, 0.99);
+    color: rgb(86, 172, 73);
+  a {
+
   }
 }
 
@@ -60,3 +56,80 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
   -moz-user-select: none;
   user-select: none;
 }
+
+#post-list {
+  margin-top: 3rem;
+  padding-right: 0.5rem;
+
+  .post-preview {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--main-border-color);
+
+    a {
+      font-family: Rubik;
+      color: rgb(86, 172, 73);
+    }
+
+    a:link {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+
+    .preview-header{
+      font-weight: black;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .post-meta {
+      i {
+        font-size: 0.73rem;
+
+        &:not(:first-child) {
+          margin-left: 1.2rem;
+        }
+      }
+
+      em {
+        @extend %normal-font-style;
+      }
+
+      .pin {
+        i {
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+          padding-left: 3px;
+          color: var(--pin-color);
+        }
+
+        span {
+          display: none;
+        }
+      }
+    }
+
+    .post-content {
+      margin-top: 0.6rem;
+      margin-bottom: 0.6rem;
+      color: var(--post-list-text-color);
+
+      > p {
+        /* Make preview shorter on the homepage */
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+  } /* .post-preview */
+} /* #post-list */
