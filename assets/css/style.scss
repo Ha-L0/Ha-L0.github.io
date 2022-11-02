@@ -36,7 +36,7 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
   font-weight: 900;
     text-transform: uppercase;
     font-size: 3.5rem;
-    line-height: 2.2rem;
+    line-height: 2.9rem;
     letter-spacing: 0.5px;
     color: rgb(86, 172, 73);
   a {
@@ -61,7 +61,13 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
   margin-top: 3rem;
   padding-right: 0.5rem;
 
+
   .post-preview {
+
+    @media only screen and (max-width: 600px) {
+    display: block;
+
+    }
     display: flex;
     justify-content: space-between;
     padding-top: 1rem;
@@ -117,8 +123,8 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
     }
 
     .post-content {
-      margin-top: 0.6rem;
-      margin-bottom: 0.6rem;
+      margin-top: 0.1rem;
+      margin-bottom: 0.1rem;
       color: var(--post-list-text-color);
 
       > p {
