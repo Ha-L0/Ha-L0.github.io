@@ -23,7 +23,7 @@ order: 1
 
 <div class="container">
 	<div class="item-0"><img src="https://ha-l0.github.io/images/H4-and-L0-v2-02.png" width="200px"/></div>
-	<div class="item-1"><b>H4:</b> Just a hacker marching down his path... On Twitter known as [rnd_infosec_guy](https://twitter.com/rnd_infosec_guy)</div>
+	<div class="item-1"><b>H4:</b> Just a hacker marching down his path... On Twitter known as <a href="https://twitter.com/rnd_infosec_guy">rnd_infosec_guy</a></div>
 </div>
 
 <div class="container">
