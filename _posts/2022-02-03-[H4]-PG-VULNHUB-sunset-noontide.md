@@ -32,7 +32,7 @@ PORT     STATE SERVICE VERSION
 Service Info: Host: irc.foonet.com
 ```
 
-Only an IRC service could be identified.
+Only an `IRC` service could be identified.
 
 ---
 
@@ -61,10 +61,10 @@ UnrealIRCd 3.2.8.1 - Backdoor Command Execution (Metasploit)                    
 Shellcodes: No Results
 ```
 
-> The installed IRC server seems to be backdoored!
+> The installed `IRC` server seems to be backdoored!
 {: .prompt-info}
 
-Reviewing the source code of the `metasploit` module reveals that a simple payload can be used to access the backdoor.
+Reviewing the source code of the `metasploit` module reveals that a simple payload can be used to access the backdoor.  
 ![image](/images/sunsetnoontide1.png)
 
 ## get reverse shell
