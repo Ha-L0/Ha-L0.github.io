@@ -104,7 +104,7 @@ Content-Type: text/html; charset=UTF-8
 # exploitation
 ## ftp
 > anonymous access allowed
-{: .prompt-tip }
+{: .prompt-info }
 
 Downloading everything from the `ftp` server to see if there is any juicy stuff in there which helps us to get access to the target.
 
@@ -177,7 +177,7 @@ if($_GET['login']==="1"){
 ```
 
 > This source code seems to be the code of the login page we identified earlier with `gobuster`
-{: .prompt-tip }
+{: .prompt-info }
 
 > Having a closer look at the `if` statement comparing the submitted credentials reveals that there is a [`type juggling`](https://owasp.org/www-pdf-archive/PHPMagicTricks-TypeJuggling.pdf) vulnerability. We can exploit this issue by submitting an array instead of a password string to bypass the login.
 {: .prompt-info }
@@ -223,7 +223,7 @@ Welcome! </br> Go to the <a href="dashboard.php">dashboard</a>
 Yay! It worked. We are now in the admin panel.  
 
 > The panel contains a site which allows the admin to view the content of log files which can be exploited by a `directory traversal` attack.
-{: .prompt-tip }
+{: .prompt-info }
 
 ## arbitriary file read in `/admin/dashboard.php?page=log`
 
@@ -305,7 +305,7 @@ It worked and we see that there is a `hash` inside the file, which is not very c
 `webadmin:$1$webadmin$3sXBxGUtDGIFAcnNTNhi6/:1001:1001:webadmin,,,:/home/webadmin:/bin/bash`
 
 > Cracking the hash with `john` reveals password the password `dragon`
-{: .prompt-tip }
+{: .prompt-info }
 
 ## logging in via ssh and first flag
 
@@ -382,7 +382,7 @@ To check how to exploit the program `nice` to get `root` access, we can have a l
 {: .prompt-danger }
 
 > This restriction can be bypassed by traversing out of the `/notes` folder. So the final payload to get `root` access looks like the following: `sudo /bin/nice /notes/../bin/sh`
-{: .prompt-tip }
+{: .prompt-info }
 
 ```bash
 webadmin@serv:~$ sudo /bin/nice /notes/../bin/sh

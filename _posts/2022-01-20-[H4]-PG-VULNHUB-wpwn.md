@@ -151,7 +151,7 @@ Interesting Finding(s):
 [+] Elapsed time: 00:00:04
 ```
 > If we have a closer look at the output we see that the plugin `social warfare 3.5.2` is used. Searching for an exploit using `searchsploit` reveals that the installed version is vulnerable to an `rce`.
-{: .prompt-tip }
+{: .prompt-info }
 
 ```bash
 $ searchsploit social warfare      
@@ -285,7 +285,7 @@ takis
 ```
 
 > So we identified that the user `takis` exists and that the `wordpress` installation uses a complicated database password (`R3&]vzhHmMn9,:-5`). It is worth a try to ssh into the machine with `takis:R3&]vzhHmMn9,:-5`.
-{: .prompt-tip }
+{: .prompt-info }
 
 ```bash
 ssh takis@192.168.55.123

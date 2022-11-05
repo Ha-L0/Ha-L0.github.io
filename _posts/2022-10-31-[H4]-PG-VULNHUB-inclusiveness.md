@@ -28,7 +28,7 @@ Nmap done: 1 IP address (1 host up) scanned in 19.51 seconds
 
 ## FTP (port 21)
 > Anonymous access allowed and file write is possible.
-{: .prompt-tip }
+{: .prompt-info }
 
 ## SSH (port 22)
 No vulnerabilities identified.
@@ -154,7 +154,7 @@ Mozilla/5.0 (compatible; YandexBot/3.0; MirrorDetector; +http://yandex.com/bots)
 Used `burp intruder` to identify a valid string.
 Alternatively you can use free tools like `wfuzz` to perform this task.
 > `Googlebot/2.1 (+http://www.googlebot.com/bot.html)`
-{: .prompt-tip }
+{: .prompt-info }
 
 ### requesting `robots.txt` content
 #### request
@@ -291,7 +291,7 @@ systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
 ftp:x:118:125:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
 ```
 > Directory traversal vulnerability confirmed!
-{: .prompt-tip }
+{: .prompt-info }
 
 Now let us test if it is also possible to load a `PHP` file and get it interpreted by trying a `webshell` upload.
 
@@ -494,7 +494,7 @@ Program checks if the current user is `tom`. if this is the case the pogram allo
 As we are `www-data` data we first need to be `tom` or make the program believe we are `tom`.  
 The program just performs a `whoami` command and reads the response.  
 > As the program does not execute `whoami` from its absolute path,  we can create a program which prints `tom`, call it `whoami` and adding the folder where it is stored (e.g. `tmp`) in front of the `$PATH` variable.
-{: .prompt-tip }
+{: .prompt-info }
 
 ### create the fake `whoami`
 ```bash

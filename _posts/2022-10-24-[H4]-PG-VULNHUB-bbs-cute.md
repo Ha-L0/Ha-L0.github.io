@@ -42,7 +42,7 @@ Shellcodes: No Results
 ```
 
 > `cutenews 2.1.2` is vulnerable to an [rce](https://www.exploit-db.com/exploits/48800) via file upload.
-{: .prompt-tip }
+{: .prompt-info }
 
 1. register a new account
 2. perform an avatar upload to upload a shell

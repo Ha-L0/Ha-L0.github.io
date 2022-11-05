@@ -65,7 +65,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ```
 
 > It seems that `wordpress` is installed on the web server. `wpscan` reveals that wordpress version `4.7.10` is used and outdated.
-{: .prompt-tip }
+{: .prompt-info }
 
 ---
 
@@ -92,7 +92,7 @@ Shellcodes: No Results
 - `http://dc-2/?static=1&order=asc` reveals the 'secret' content  
   
 > The site gives the hint that `cewl` might be a good idea. `cewl` generates custom wordlists it scrapes from the website you provide.
-{: .prompt-tip }
+{: .prompt-info }
 
 ```bash
 cewl -d 2 -w ourWordlist.txt "http://dc-2/?static=1&order=asc"
@@ -138,7 +138,7 @@ Yay! we got two valid credentials for the `wordpress` instance.
 ## ssh
 On port 7744 there is a `SSH` service
 > logging in with `tom:parturient` works
-{: .prompt-tip }
+{: .prompt-info }
 
 ```bash
 ssh tom@dc-2 -p 7744                                                                                                                                                  
