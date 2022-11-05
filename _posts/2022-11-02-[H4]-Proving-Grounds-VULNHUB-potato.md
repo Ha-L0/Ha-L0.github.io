@@ -3,7 +3,10 @@ layout: post
 author: H4
 ---
 
+Vulnhub resource
 [Details](https://www.infosecarticles.com/potato-1-vulnhub-walkthrough/)
+This box was customized by Offensive Security and integrated in the 'proving grounds' lab.  
+In the following you see the solution of the 'proving grounds' version.  
 
 # enumeration
 Performing a simple `nmap` scan to identify the attack surface

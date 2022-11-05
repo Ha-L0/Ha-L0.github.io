@@ -27,7 +27,7 @@ Nmap done: 1 IP address (1 host up) scanned in 6.79 seconds
 ```
 
 ## web server (port 80)
-The website exposes a web interface with a command ping feature. This looks juicy to test for a potential `command execution` vulnerability.
+The website exposes a web interface with a command `ping` feature. This looks juicy to test for a potential `command execution` vulnerability.
 
 ---
 
@@ -69,7 +69,7 @@ Content-Type: text/html; charset=UTF-8
 ---
 
 # post exploitation
-## establish reverse shell with tty
+## establish reverse shell with `tty`
 ### reverse shell
 #### start listener on attacker machine
 ```bash
@@ -113,7 +113,7 @@ export TERM=xterm
 
 ## get `root` access
 
-Looking for files with the `SUID` flag and owned by 'root'.
+Looking for files with the `SUID` flag and owned by `root`.
 
 ```bash
 www-data@shakabrah:/home/dylan$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
