@@ -3,7 +3,6 @@ layout: post
 author: H4
 ---
 
-Vulnhub source  
 [Details](https://www.vulnhub.com/entry/bbs-cute-102,567/)  
 This box was customized by Offensive Security and integrated in the 'proving grounds' lab.  
 In the following you see the solution of the 'proving grounds' version.  
