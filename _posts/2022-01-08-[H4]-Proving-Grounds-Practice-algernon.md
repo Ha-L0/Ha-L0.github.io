@@ -96,6 +96,9 @@ Shellcodes: No Results
 {: .prompt-info }
 
 ## configurate the exploit
+
+This exploit abuses a vulnerability in the `API` on port 17001.
+
 ```python
 ...
 HOST='192.168.187.65'
