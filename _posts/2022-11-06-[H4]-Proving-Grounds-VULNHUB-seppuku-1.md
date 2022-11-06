@@ -33,13 +33,13 @@ Nmap done: 1 IP address (1 host up) scanned in 13.02 seconds
 ```
 
 ## security quick checks
-> `ftp` (port 21): no anonymous access allowed
-> `ssh` (port 22): no weak passwords used for authentication or `root` access disabled
-> web server (port 80): `htaccess` protected
-> samba share (port 139, 445): no shares
-> web server (port 8088): 'web console' (no exploit available)
-> port 7080: no reaction
-> web server (port 7601): looks like web server on port 8088 at first...
+> `ftp` (port 21): no anonymous access allowed  
+> `ssh` (port 22): no weak passwords used for authentication or `root` access disabled  
+> web server (port 80): `htaccess` protected  
+> samba share (port 139, 445): no shares  
+> web server (port 8088): 'web console' (no exploit available)  
+> port 7080: no reaction  
+> web server (port 7601): looks like the website on port 8088 at first...
 {: .prompt-danger }
 
 ## closer look at port 7601
@@ -84,31 +84,31 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 ```
 
-> The folders `keys` and `secret` sound interesting 
+> The folders `keys` and `secret` look interesting 
 {: .prompt-info }
 
 ### folder `keys`
 - `private`
 - `private.bak`
 
-### folder `secret`s
+### folder `secret`
 - `hostname`: seppuku
 - `passwd.bak`: `passwd` file backup
 - `shadow.bak`: `shadow` file backup
-- `password.lst`: `password` list
+- `password.lst`: password list
 
 ---
 
 # exploitation
 
-## make use of public information
+## analyze leaked information
 > `private` and `private.bak` keys unfortunately can not be used to log in into the machine as `root` or `seppuku` (`hostname`) via `ssh`.
 {: .prompt-danger }
 
 > `passwd.bak` and `shadow.bak` accounts are useless too.
 {: .prompt-danger }
 
-Now we have only the files `password.lst` and `hostname` left which maybe can be used in some kind of brute force attack.  
+Now we have only the files `password.lst` and `hostname` left which may can be used in some kind of brute force attack.  
 
 > Performing a brute force attack with the provided `password.lst` and username `root` does not work.
 {: .prompt-danger }
@@ -158,7 +158,7 @@ seppuku@seppuku:~$ cat local.txt
 0******************************e
 ```
 
-When trying to further inspect the system we see that we are jailed with `rbash` restricts our access.
+When trying to further inspect the system we see that we are jailed with `rbash` to restricts our access.
 
 ## `rbash` (jail) escape
 ```bash
@@ -175,13 +175,13 @@ Now we can investigate the system further.
 
 ## privilege escalation
 
-In the home folder of `seppuku` is the password for user `samurai`:
+In the home folder of `seppuku` we find the password for user `samurai`:
 ```bash
 $ cat .passwd
 12345685213456!@!@A
 ```
 
-Login via `ssh` as `samurai` without a restricted shell
+Login via `ssh` as `samurai` with a full `bash` shell (bypass `rbash`)
 ```bash
 $ ssh samurai@192.168.52.90 "bash --noprofile"
 samurai@192.168.52.90's password: 
@@ -210,8 +210,10 @@ User samurai may run the following commands on seppuku:
 > The executable `/home/tanto/.cgi_bin/bin` is not available.
 {: .prompt-danger }
 
-So if we can place an executable in the `tanto` home folder in the way it is specified above we can escalate to root with the user `samurai`.  
-If we remember what we already collected about this machine the leaked `ssh` private keys come to our mind. So far we were not able to use them, but it might be a good idea to test if they are assigned to the user `tanto`.
+> So if we can place an executable in the `tanto` home folder in the way it is specified above we can escalate to root with the user `samurai`.
+{: .prompt-info }
+
+If we remember what we already collected about this machine, the leaked `ssh` private keys come to our mind. So far we were not able to use them, but it might be a good idea to test if they are assigned to the user `tanto`.
 
 Trying to log in with `private.bak` as user `tanto` via `ssh`.
 ```bash
