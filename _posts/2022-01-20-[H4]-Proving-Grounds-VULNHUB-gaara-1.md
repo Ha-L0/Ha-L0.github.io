@@ -39,8 +39,7 @@ Requesting the resource exposes other resources to check.
 - `/Kazekage`
 - `/iamGaara`
 
-Requesting `http://192.168.55.142/iamGaara` exposes a list of strings. The following string catches our attention:  
-`f1MgN9mTf9SNbzRygcU`
+Requesting `http://192.168.55.142/iamGaara` exposes a list of strings. The following string catches our attention: `f1MgN9mTf9SNbzRygcU`
 
 > Trying to decode that string with `echo 'f1MgN9mTf9SNbzRygcU' | base64 -d` does not work, so it does not seem to be `base64`
 {: .prompt-danger}
