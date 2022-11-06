@@ -32,7 +32,7 @@ Nmap done: 1 IP address (1 host up) scanned in 23.28 seconds
 ## quick checks
 - standard ```ssh``` service on port 22
 - `smtp` service on port 25
-- website without useful content (no reasonable dirb results) on port 80
+- website without useful content (no reasonable `dirb` results) on port 80
 - `smb` on port 139/445
 - `snmp` protocol on port 199
 
