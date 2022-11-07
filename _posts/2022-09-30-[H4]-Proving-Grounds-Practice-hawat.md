@@ -70,13 +70,14 @@ Nmap done: 1 IP address (1 host up) scanned in 19.18 seconds
 > Dir busting the services with tools like `dirb` or `gobuster` exposes the following relevant resources.  
 > - on port 30455: `/phpinfo.php`
 > - on port 50080: `/cloud` (`mycloud` instance)
+> - on port 17445: nothing
 {: .prompt-info }
 
 ---
 
 # exploitation
 ## testing web server on port 17445
-The application is a issue tracker with a lot of input sinks.  
+The application is a issue tracker with a lot sinks.  
 
 > Unfortunately it does not react to our black box testing.
 {: .prompt-danger }
@@ -96,7 +97,7 @@ The application is a issue tracker with a lot of input sinks.
 > Investigating the source code reveals that there is an `SQL` injection which we can exploit.
 {: .prompt-info }
 
-### code line with SQLi vulnerability
+### code line with `SQLi` vulnerability
 ```java
 ...
 @GetMapping("/issue/checkByPriority")
@@ -124,7 +125,7 @@ The application is a issue tracker with a lot of input sinks.
 The final `SQL` query is built with the variable `priority` which is integrated as user input without any sanitization.  
 This `POST` request seem to be 'hidden' in the context of black box testing, as we were not able identify it by going through the application earlier.  
 
-> This emphasizes the importance of code review and how it usally is more reliable then a simple black box test.
+> This emphasizes the importance of code review and how it usally is more reliable than a simple black box test.
 {: .prompt-info }
 
 ### vulnerable post request
