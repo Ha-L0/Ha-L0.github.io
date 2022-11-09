@@ -134,6 +134,10 @@ nt authority\system
 > We got a `nt authority\system` shell!
 {: .prompt-info }
 
+---
+
+# post exploitation
+
 ```bash
 C:\Users\Administrator\Desktop>type proof.txt
 type proof.txt
