@@ -7,7 +7,7 @@ This is an Offensive Security proving grounds practice box.
 
 # enumeration
 
-Executing a `nmap` scan to identify the atack surface of the target.
+Executing a `nmap` scan to identify the attack surface of the target.
 
 ## port scan
 ```bash
@@ -116,7 +116,7 @@ cat local.txt
 
 ## privilege escalation
 
-Check which commands we can execute as with `sudo` as user charles.
+Check which commands we can execute with `sudo` as user `charles`.
 ```bash
 charles@pelican:~$ sudo -l
 sudo -l
