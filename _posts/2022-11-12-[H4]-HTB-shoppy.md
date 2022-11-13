@@ -80,7 +80,6 @@ The domain `mattermost.shoppy.htb` is available.
 # exploitation
 ## `NoSQL` injection
 It took me some time as I have to admit that I usually forget to check for `NoSQL` injections, but in the end I got it!  
-The parameter `username` in the login under `/login` is vulnerable.
 
 ### normal login request
 ```http
@@ -116,7 +115,9 @@ Vary: Accept
 <p>Found. Redirecting to <a href="/login?error=WrongCredentials">/login?error=WrongCredentials</a></p>
 ```
 
-We can bypass the login with a simple `NoSQL` injection.
+> We can bypass the login with a simple `NoSQL` injection.  
+> The parameter `username` in the login under `/login` is vulnerable.
+{: .prompt-info }
 
 ### `NoSQL` injection login request
 payload: `admin'||'a'=='a`
@@ -324,7 +325,7 @@ Session completed.
 > Yes! We got the password of `josh` (`remembermethisway`).
 {: .prompt-info }
 
-## `Mattermost`
+## Mattermost
 Lets log in to `Mattermost` with the account `josh`.  
 After we logged in, we see `ssh` credentials in the channel `Deploy Machine`
 
