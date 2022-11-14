@@ -219,7 +219,6 @@ Content-Type: text/html; charset=UTF-8
 GIF689a;
 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
-
 ```
 
 > Yes! Code execution.
@@ -299,6 +298,7 @@ Checking if we have super user permissions reveals that we are allowed to execut
 vagrant@ubuntu-xenial:/home$ sudo -l
 sudo -l
 Matching Defaults entries for vagrant on ubuntu-xenial:
+env_reset, mail_badpass,
 secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User vagrant may run the following commands on ubuntu-xenial:
