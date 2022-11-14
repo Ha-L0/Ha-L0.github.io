@@ -60,13 +60,13 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ```
 
 ### investigating identified folders
-Checking `/assets`
+Checking `/assets`  
 ![assets](/images/blogger_assets.png)
 
-Checking `/fonts`
+Checking `/fonts`  
 ![fonts](/images/blogger_fonts.png)
 
-Checking `/blog`
+Checking `/blog`  
 ![blog](/images/blogger_blog.png)
 
 We identified another blog.  
@@ -190,8 +190,10 @@ $ python3 /usr/share/exploitdb/exploits/php/webapps/49967.py -u http://blogger.t
 [x] Failed to execute PHP code...
 ```
 
-It first seems as if the exploit failed.  
-However, if we check the location where the exploit reports it uploaded a shell file and check for a simple code execution, everything seems to work fine.
+> Exploit seems to have failed.
+{: .prompt-danger }
+
+However, if we check the location where the exploit reports it uploaded a shell and check for a simple code execution, everything seems to work fine.
 
 ### request
 ```http
