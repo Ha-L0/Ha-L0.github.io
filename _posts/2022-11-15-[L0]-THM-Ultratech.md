@@ -3,7 +3,6 @@ layout: post
 author: L0
 ---
 
-
 ![image](/images/Pasted image 20221115211941.png)
 
 ## Enumeration
@@ -31,7 +30,7 @@ open ports:
 - `31331` apache web server
 
 > ftp login with `anonymous` does not work
-{: .prompt-warning }
+> {: .prompt-warning }
 
 ### express
 
@@ -275,6 +274,6 @@ bPB7E9hlrI0AconivYDzfpxfX+vovlP/DdNVub/EO7JSO+RAmqo=
 -----END RSA PRIVATE KEY-----
 ```
 
-machine done. :)
+root!
 
 [L0]
