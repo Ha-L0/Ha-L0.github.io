@@ -107,7 +107,7 @@ Content-Type: text/html; charset=UTF-8
 > The file does not deliver any content.
 {: .prompt-danger }
 
-However, as the file is named `evil.php` it indicates that it maybe some shell or other backdoor of a script kiddy who pwned the website.
+However, as the file is named `evil.php` it indicates that it is maybe some shell or other backdoor of a script kiddy who pwned the website.
 
 > Unfortunately we do not know what parameter is needed here.
 {: .prompt-danger }
@@ -116,7 +116,7 @@ However, as the file is named `evil.php` it indicates that it maybe some shell o
 
 # exploitation
 ## brute forcing a valid parameter for `evil.php`
-As we have no idea if the file `evil.php` is used for command execution or file read, we need to check both.  
+As we have no idea if the file `evil.php` is used for `command execution` or `file read`, we need to check both.  
 Checking for command injection does not reveal anything useful, so we will check for an arbitrary file read.  
   
 We are using `burp suite intruder` to brute force a parameter used by `evil.php`.  
