@@ -27,6 +27,6 @@ order: 1
 </div>
 
 <div class="container">
-        <div class="item-1"><b>L0:</b> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum </div>
+        <div class="item-1"><b>L0:</b> After years of doing creative stuff with graphics and animation, my interst has shifted more and more to the technical side of IT. Programming and scripting are now part of my daily business, but i want to dive even deeper into IT-Sec. </div>
         <div class="item-0"><img src="https://ha-l0.github.io/images/H4-and-L0-v2-01.png" width="200px"/></div>
 </div>
