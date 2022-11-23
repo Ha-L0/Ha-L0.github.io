@@ -46,7 +46,7 @@ Nmap done: 1 IP address (1 host up) scanned in 14.20 seconds
 ## port 80 and 443 (web server)
 A `nagios` is running here.
 
-![nagios]((/images/monitoring_nagios.png))
+![nagios](/images/monitoring_nagios.png)
 
 --- 
 
@@ -54,9 +54,9 @@ A `nagios` is running here.
 ## default password
 Googling for default credentials online reveals that the default username for `nagios` is `nagiosadmin`.
 
-![nagios default credentials]((/images/monitoring_nagiosdefaultcreds.png))
+![nagios default credentials](/images/monitoring_nagiosdefaultcreds.png)
 
-> Unfortunately the default credentials do not work.
+> Unfortunately the default password for `nagiosadmin` does not work.
 {: .prompt-danger }
 
 Lets check if user `nagiosadmin` may used another weak password.
