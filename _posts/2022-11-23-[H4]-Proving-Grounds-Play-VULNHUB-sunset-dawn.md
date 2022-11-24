@@ -143,10 +143,10 @@ Connection: close
 Config: Printing events (colored=true): processes=true | file-system-events=false ||| Scannning for processes every 100ms and on inotify events ||| Watching directories: [/usr /tmp /etc /home /var /opt] (recursive) | [] (non-recursive)
 Draining file system events due to startup...
 done
-2020/08/12 09:02:06 [31;1mCMD: UID=0    PID=923    | /usr/sbin/smbd --foreground --no-process-group [0m
+2020/08/12 09:02:06 [31;1mCMD: UID=0    PID=923    | /usr/sbin/smbd --foreground --no-process-group [0m
 ...
-2020/08/12 09:03:02 [31;1mCMD: UID=33   PID=936    | /bin/sh -c /home/dawn/ITDEPT/web-control [0m
-2020/08/12 09:03:02 [31;1mCMD: UID=33   PID=940    | /bin/sh -c /home/dawn/ITDEPT/web-control [0m
+2020/08/12 09:03:02 [31;1mCMD: UID=33   PID=936    | /bin/sh -c /home/dawn/ITDEPT/web-control [0m
+2020/08/12 09:03:02 [31;1mCMD: UID=33   PID=940    | /bin/sh -c /home/dawn/ITDEPT/web-control [0m
 ...
 ```
 
