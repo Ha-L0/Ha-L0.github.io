@@ -9,7 +9,7 @@ In the following you see the solution of the 'proving grounds' version.
 
 # discovery
 
-we are starting with a simple `nmap` port scan to identify the attack surface of the target.
+We are starting with a simple `nmap` port scan to identify the attack surface of the target.
 
 ## port scan
 ```bash
@@ -205,7 +205,7 @@ pwd
 /home
 ```
 
-> We can bypass this resrtriction executing bash without a profile while logging in via `ssh`
+> We can bypass this resrtriction by executing `bash` without a profile while logging in via `ssh`
 {: .prompt-info }
 
 ## getting first flag
@@ -228,7 +228,6 @@ b******************************8
 ## privilege escalation
 
 The box is vulnerable to the (`pwnkit`)[https://github.com/arthepsy/CVE-2021-4034] vulnerabillity.  
-  
 At first we download the source to our attacker machine and save the file as `lpe.c`
 ```bash
 $ cat lpe.c                    
@@ -268,7 +267,7 @@ Saving to: ‘lpe.c’
 2022-12-03 09:36:34 (3.16 MB/s) - ‘lpe.c’ saved [1267/1267
 ```
 
-At our attacker machine we see that the file got uploaded.
+At our attacker machine we see that the file was requested by the target after we executed the `wget` command.
 ```bash
 $ python3 -m http.server 80
 Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
@@ -300,7 +299,7 @@ proof.txt
 root.txt
 script.sh
 cat proof.txt
-bfa49466a7edb1bc70057c1c30fbef0a
+b******************************a
 ```
 
 Pwned! <@:-)
