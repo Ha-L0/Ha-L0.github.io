@@ -11,7 +11,7 @@ author: L0
 
 ### nmap
 
-starting with nmap.
+starting with nmap
 
 ```shell
 ┌──(kali㉿kali)-[~/THM/Olympus]
