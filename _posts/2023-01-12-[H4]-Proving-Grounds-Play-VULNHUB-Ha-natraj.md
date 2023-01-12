@@ -133,14 +133,14 @@ Connection: close
 Content-Type: text/html; charset=UTF-8
 ```
 
-The server responds with a `500` error. This indicates that the server tried to interpret the `PHP` code but failed.  
+The response is a `500` error. This indicates that the server tried to interpret the `PHP` code but failed.  
 
-So in the next step we try to identify files on the server we can include and are prone to a poising attack, by injecting `PHP` code in them and then reading them with the identified `LFI`.
+So in the next step we try to identify files on the server we can include and are prone to a poisoning attack.
 
-We are using a `seclists` wordlist via the `LFI` to idenfity which files we can access. Therefore we use the burp intruder with the `/usr/share/seclists/Fuzzing/LFI/LFI-gracefulsecurity-linux.txt`  wordlist.
+We are using a `seclists` wordlist via the `LFI` to idenfity which files we can access. Therefore we use the burp intruder with the `/usr/share/seclists/Fuzzing/LFI/LFI-gracefulsecurity-linux.txt` wordlist.
 Burp identified several files which can be read.  
 
-> Interesting is the file `/var/log/auth.log` as it can be used in a log poisoning vector.
+> Interesting is the file `/var/log/auth.log` as it can be used in a log poisoning vector to get code execution.
 {: .prompt-info }
 
 ```http
@@ -296,7 +296,7 @@ www-data@ubuntu:/var/www/html/console$
 > Reverse shell!
 {: .prompt-info }
 
-## get first flag
+## get the first flag
 ```bash
 www-data@ubuntu:/var/www/html/console$ ls
 ls
@@ -355,12 +355,12 @@ Using `linpeas.sh` shows that the following interesting files are world writeabl
 {: .prompt-info }
 
 In the default configuration all the files the web server accesses are executed by the user `www-data`.  
-That is the reason we at the moment got a remote code execution as this user. Our goal is to change this user context to elevante our privileges. 
+That is the reason we at the moment got a remote code execution as this user. Our goal is to change this user context to elevate our privileges. 
   
-> As we are allowed to overwrite the `apache2.conf` file it should be possible to change this to another user which is available on the system.
+> As we are allowed to overwrite the `apache2.conf` file, it should be possible to change the user context to another existing user who has probably more privileges then `www-data`.
 {: .prompt-info }
 
-The following users are available
+The following users are available on the target system:
 ```bash
 www-data@ubuntu:/etc/apache2$ ls -lsah /home
 total 16K
@@ -388,13 +388,13 @@ Group mahakal
 ...
 ```
 
-Now we restart the `apache2` service as we are allowed to do it via `sudo`.
+Now we restart the `apache2` service.
 ```bash
 www-data@ubuntu:/etc/apache2$ sudo /bin/systemctl restart apache2
 ```
 
 As soon as we do this our reverse shell gets terminated.  
-Lets get a new connect from the server.
+Lets get a new reverse shell.
 
 ### start listener on the attackers machine
 ```bash
@@ -431,7 +431,7 @@ mahakal@ubuntu:/var/www/html/console$
 > It worked! We are now `mahakal`!
 {: .prompt-info }
 
-Now the checks for privilege escalation techniques start again.  
+Now the checks for common privilege escalation techniques start again.  
 We begin with checking our `sudo` permissions.
 ```bash
 mahakal@ubuntu:/var/www/html/console$ sudo -l
