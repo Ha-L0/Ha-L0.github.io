@@ -138,7 +138,7 @@ Lets try to upload a simple file named `shell.php` with the following content.
 > It seemed to have worked and was stored in the folder of a web server!
 {: .prompt-info }
 
-As we have no idea on which of the identified web servers (ports `80`, `8088` or `8715`) the web shell is stored, we now check on it on everyone of them.
+As we have no idea on which of the identified web servers (ports `80`, `8088` or `8715`) the web shell is stored, we now check on everyone of them.
 
 ```http
 GET /katana_shell.php?c=id HTTP/1.1
@@ -233,7 +233,7 @@ root@katana:/tmp# id
 uid=0(root) gid=33(www-data) groups=33(www-data)
 ```
 
-> We are root! Yay!
+> We are `root`! Yay!
 {: .prompt-info }
 
 ## get the second flag
