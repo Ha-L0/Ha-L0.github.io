@@ -503,7 +503,6 @@ bash-5.1$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> 
 -rwsr-xr-x 1 root root 30872 Oct 14  2020 /sbin/capsh
 -rwsr-xr-x 1 root root 55528 Jan 20  2022 /bin/mount
 -rwsr-xr-x 1 root root 35040 Jan 20  2022 /bin/umount
--rwsr-xr-x 1 root root 1234376 Mar 27  2022 /bin/bash
 -rwsr-xr-x 1 root root 71912 Jan 20  2022 /bin/su
 ```
 
@@ -523,7 +522,6 @@ Paste your find output. When you are done press ctrl+d
 -rwsr-xr-x 1 root root 30872 Oct 14  2020 /sbin/capsh
 -rwsr-xr-x 1 root root 55528 Jan 20  2022 /bin/mount
 -rwsr-xr-x 1 root root 35040 Jan 20  2022 /bin/umount
--rwsr-xr-x 1 root root 1234376 Mar 27  2022 /bin/bash
 -rwsr-xr-x 1 root root 71912 Jan 20  2022 /bin/su
 
 ^D
