@@ -56,9 +56,10 @@ Content-Type: text/html
 ...
 ```
 
-Performing a sub domain brute force shows that there also is a sub domain named `dev`
+Performing a sub domain brute force shows that there also is a sub domain named `dev`  
 So we have 2 new websites to have a look at.
 > `dev.topology.htb`
+{: .prompt-info }
 > `latex.topology.htb`
 {: .prompt-info }
 
@@ -115,6 +116,7 @@ Upgrade-Insecure-Requests: 1
 ![passwd file](/images/topology_passwd.png)
 
 > Nice it works! 
+{: .prompt-info }
 
 What we know from the file now is that there is user on the system named `vdaisley`.  
 We remember that there is a sub domain called `dev` which is password protected, so in the next step we try to read the `.htpasswd` file of this website
@@ -139,6 +141,7 @@ Upgrade-Insecure-Requests: 1
 ![hash](/images/topology_hash.png)
 
 > We got a hash for user `vdaisley`!
+{: .prompt-info }
 
 Lets crack this hash.
 ```bash
@@ -160,9 +163,10 @@ Session completed.
 ```
 
 > Yes we cracked the password! `vdaisley:calculus20`
+{: .prompt-info }
 
 Lets check if we can login using the hash.
-```
+```bash
 $ ssh vdaisley@topology.htb
 vdaisley@topology.htb's password: 
 Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-150-generic x86_64)
@@ -224,6 +228,7 @@ done
 ```
 
 > Yes. There seems to be a regular by `root` executed process which is worth a look
+{: .prompt-info }
 
 Googling for `gnuplot plt privilege escalation` gives you the following website:
 [https://exploit-notes.hdks.org/exploit/linux/privilege-escalation/gnuplot-privilege-escalation/](https://exploit-notes.hdks.org/exploit/linux/privilege-escalation/gnuplot-privilege-escalation/)
@@ -239,6 +244,7 @@ total 12K
 ```
 
 > Yes we are. 
+{: .prompt-info }
 
 Lets create a `plt` file, place it in the folder and wait to see if a reverse shell is triggered.  
   
@@ -272,6 +278,7 @@ uid=0(root) gid=0(root) groups=0(root)
 ```
 
 > It worked and we are `root`!
+{: .prompt-info }
 
 ## getting the second flag
 ```bash
