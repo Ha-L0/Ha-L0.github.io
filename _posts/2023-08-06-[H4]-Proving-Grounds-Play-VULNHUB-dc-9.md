@@ -9,7 +9,7 @@ In the following you see the solution of the 'proving grounds' version.
 
 # discovery
 
-We starting by a port scan to detect the attack surface of the target.
+We are starting by a port scan to detect the attack surface of the target.
 
 ## port scan
 ```bash
@@ -463,7 +463,7 @@ else :
 ```
 
 We have the source code of the `test` binary. The binary simply reads the content from one file and appends it to another.  
-What we can do here to exploit it is adding a new line to the `/etc/passwd` file to add a new `root` account.  
+What we can do here to exploit it, is adding a new line to the `/etc/passwd` file to add a new `root` account.  
   
 We start by creating the line we will add to `/etc/passwd`.  
 ```bash
