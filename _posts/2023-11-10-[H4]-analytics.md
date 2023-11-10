@@ -3,6 +3,8 @@ layout: post
 author: H4
 ---
 
+![banner](/images/htb_analytics_banner.png)  
+
 # discovery
 ## port scan
 ```bash
@@ -43,7 +45,7 @@ Date: Tue, 31 Oct 2023 19:37:53 GMT
 ...
 ```
 
-Now we can construct our attack.  
+Now we can forge our attack.  
 Start a listener on the attacker machine.
 ```bash
 $ nc -lvp 443
